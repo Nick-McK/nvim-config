@@ -16,4 +16,3 @@ vim.opt.rtp:prepend(lazypath)
 -- require all plugins after we have loaded lazy nvim
 -- without this here no plugins will work (obviously)
 require("plugins")
-
