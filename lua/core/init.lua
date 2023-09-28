@@ -30,3 +30,4 @@ opt.softtabstop = 4
 
 -- Word wrapping with h and l
 opt.whichwrap:append "<>[]hl"
+vim.cmd [[set termguicolors]]

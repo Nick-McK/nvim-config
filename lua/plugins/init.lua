@@ -6,6 +6,9 @@ local plugins = {
 		-- "voidekh/kyotonight.vim",
 		-- "rebelot/kanagawa.nvim",
 		"rose-pine/neovim",
+        -- "marko-cerovac/material.nvim",
+        -- "embark-theme/vim",
+        -- name="embark",
 		lazy=false,
 		priority = 1000,
 		opts = function()

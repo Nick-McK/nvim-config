@@ -69,7 +69,8 @@ local kanagawa = {
 
 local rose_pine = {
 	--- @usage 'auto'|'main'|'moon'|'dawn'
-	variant = 'auto',
+	-- variant = 'auto',
+    variant = "moon",
 	--- @usage 'main'|'moon'|'dawn'
 	dark_variant = 'moon', -- I have dark background set in nvim so this is the option to change
 	bold_vert_split = false,
@@ -121,6 +122,7 @@ local rose_pine = {
 		Search = { bg = 'gold', inherit = false },
 	}
 }
+
 -- can return any of the below to be used without needing to comment stuff out
 -- catppuccin, kanagawa, rose-pine
 return rose_pine
