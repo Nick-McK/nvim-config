@@ -18,6 +18,13 @@ local options = {
             width = 0.87,
             height = 0.8,
         },
+        -- Set j and k to get next and previous items in insert mode (can still use n and p)
+        mappings = {
+            i = {
+                ["<C-j>"] = require("telescope.actions").move_selection_next,
+                ["<C-k>"] = require("telescope.actions").move_selection_previous,
+            },
+        },
         path_display = {"truncate"},
         extensions_list =  {"terms", "fzf"},
         extensions = {

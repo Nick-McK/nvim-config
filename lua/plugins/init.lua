@@ -2,9 +2,7 @@ local plugins = {
 	"nvim-lua/plenary.nvim",
 	{
 		-- "folke/tokyonight.nvim",
-		-- "catppuccin/nvim",
 		-- "voidekh/kyotonight.vim",
-		-- "rebelot/kanagawa.nvim",
 		"rose-pine/neovim",
         -- "marko-cerovac/material.nvim",
         -- "embark-theme/vim",
@@ -16,10 +14,35 @@ local plugins = {
 		end,
 		config = function(_, opts)
 			-- setup must be called before initialising the colour scheme
-			require("rose-pine").setup(opts)
+			require("rose-pine").setup(opts.rose_pine)
+            -- default to rose-pine theme
 			vim.cmd[[colorscheme rose-pine]]
 		end,
 	},
+    {
+		"catppuccin/nvim",
+        lazy=false,
+		priority = 1000,
+		opts = function()
+			return require("plugins.configs.colourscheme")
+		end,
+		config = function(_, opts)
+			-- setup must be called before initialising the colour scheme
+			require("catppuccin").setup(opts.catppuccin)
+		end,
+    },
+    {
+		"rebelot/kanagawa.nvim",
+        lazy=false,
+		priority = 1000,
+		opts = function()
+			return require("plugins.configs.colourscheme")
+		end,
+		config = function(_, opts)
+			-- setup must be called before initialising the colour scheme
+			require("kanagawa").setup(opts.kanagawa)
+		end,
+    },
 	{
 		"williamboman/mason.nvim",
 		opts = function()
@@ -89,16 +112,17 @@ local plugins = {
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+                "onsails/lspkind.nvim", -- cmp icons and sources
 			},
-
 		},
 		opts = function()
 			return require("plugins.configs.cmp")
 		end,
 		config = function(_, opts)
-			require("cmp").setup(opts)
-		end,
-	},
+            require("cmp").setup(opts)
+        end,
+    },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
