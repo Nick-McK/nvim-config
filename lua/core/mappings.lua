@@ -68,9 +68,24 @@ M.general = {
                 require('treesitter-context').go_to_context()
             end, "Jumps to Current Context" },
     },
+
+    -- INSERT MODE
+    i = {
+        ["<A-h>"] = {function()
+            require("core.terminal").hide_terminals()
+        end, "Hide Terminal"},
+        ["<C-h>"] = {"<LEFT>", "Move Left in Insert Mode"},
+        ["<C-j>"] = {"<DOWN>", "Move Down in Insert Mode"},
+        ["<C-k>"] = {"<UP>", "Move Up in Insert Mode"},
+        ["<C-l>"] = {"<RIGHT>", "Move Right in Insert Mode"},
+    },
     -- terminal mode (used for interacting with the terminal ie inserting)
     t = {
         ["<C-x>"] = { [[<C-\><C-n>]], "Exit Terminal Mode" },
+        -- Hide terminal
+        ["<A-h>"] = {function()
+            require("core.terminal").hide_terminals()
+        end, "Hide Terminal"},
     }
 
 }
