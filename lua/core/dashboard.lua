@@ -64,7 +64,7 @@ function create_dash()
 
 --	vim.api.nvim_create_buf(false, true)
 --	vim.api.nvim_buf_set_lines(0,0,-1, false, centered_goku)
-
+    vim.api.nvim_buf_set_option(0, "modifiable", false)
 	vim.api.nvim_buf_set_option(0, "buftype", "nofile")
 	vim.api.nvim_buf_set_option(0, "bufhidden", "wipe")
 	-- buffer, 

@@ -2,14 +2,19 @@ local M = {}
 
 M.general = {
     n = {
-        ["<leader>qq"] = { ":qa!<CR>", "Force quite all no saving" },
+        ["<C-q>"] = { ":qa!<CR>", "Force quite all no saving" },
         [";"] = { ":", "Open Command Mode" },
         ["<C-b>"] = { "^", "Move to Beginning of Line" },
         ["<C-e>"] = { "$", "Move to End of Line" },
 
+        -- open theme switcher
+        ["<leader>th"] = {function()
+            require("plugins.configs.colourscheme.colour_picker").open_theme_window()
+        end, "Opens Theme Switcher Menu"},
+
         -- Telescope
         ["<leader>ff"] = { "<CMD>:Telescope find_files<CR>", "Find Files" },
-        ["<C-b>"] = { "<CMD>:Ex<CR>", "Opens File Tree" },
+        ["<C-n>"] = { "<CMD>:Ex<CR>", "Opens File Tree" },
 
         -- Open terminal
         --["<leader>ht"] = {"<CMD>:term<CR>", "Opens Horizontal Terminal"},
@@ -78,6 +83,8 @@ M.general = {
         ["<C-j>"] = {"<DOWN>", "Move Down in Insert Mode"},
         ["<C-k>"] = {"<UP>", "Move Up in Insert Mode"},
         ["<C-l>"] = {"<RIGHT>", "Move Right in Insert Mode"},
+        ["<C-b>"] = { "<ESC>^i", "Move to Beginning of Line" },
+        ["<C-e>"] = { "<ESC>$a", "Move to End of Line" },
     },
     -- terminal mode (used for interacting with the terminal ie inserting)
     t = {

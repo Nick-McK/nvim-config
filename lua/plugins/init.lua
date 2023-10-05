@@ -10,7 +10,7 @@ local plugins = {
 		lazy=false,
 		priority = 1000,
 		opts = function()
-			return require("plugins.configs.colourscheme")
+			return require("plugins.configs.colourscheme.colourscheme")
 		end,
 		config = function(_, opts)
 			-- setup must be called before initialising the colour scheme
@@ -24,7 +24,7 @@ local plugins = {
         lazy=false,
 		priority = 1000,
 		opts = function()
-			return require("plugins.configs.colourscheme")
+			return require("plugins.configs.colourscheme.colourscheme")
 		end,
 		config = function(_, opts)
 			-- setup must be called before initialising the colour scheme
@@ -36,7 +36,7 @@ local plugins = {
         lazy=false,
 		priority = 1000,
 		opts = function()
-			return require("plugins.configs.colourscheme")
+			return require("plugins.configs.colourscheme.colourscheme")
 		end,
 		config = function(_, opts)
 			-- setup must be called before initialising the colour scheme

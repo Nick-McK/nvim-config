@@ -25,8 +25,8 @@ local options = {
                 ["<C-k>"] = require("telescope.actions").move_selection_previous,
             },
         },
-        path_display = {"truncate"},
-        extensions_list =  {"terms", "fzf"},
+        path_display = { "truncate" },
+        extensions_list = { "terms", "fzf" },
         extensions = {
             fzf = {
                 fuzzy = true,
