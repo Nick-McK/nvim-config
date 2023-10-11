@@ -1,7 +1,9 @@
 local plugins = {
 	"nvim-lua/plenary.nvim",
-	{
-		-- "folke/tokyonight.nvim",
+    {
+        "tjdevries/colorbuddy.nvim",
+    },
+    {
 		-- "voidekh/kyotonight.vim",
 		"rose-pine/neovim",
         -- "marko-cerovac/material.nvim",
@@ -16,9 +18,18 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("rose-pine").setup(opts.rose_pine)
             -- default to rose-pine theme
-			vim.cmd[[colorscheme rose-pine]]
+			-- vim.cmd[[colorscheme rose-pine]]
 		end,
 	},
+    {
+		"folke/tokyonight.nvim",
+        opts = function ()
+            return require("plugins.configs.colourscheme.colourscheme")
+        end,
+        config = function(_,opts)
+            require("tokyonight").setup(opts.tokyonight)
+        end,
+    },
     {
 		"catppuccin/nvim",
         lazy=false,
@@ -42,6 +53,15 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("kanagawa").setup(opts.kanagawa)
 		end,
+    },
+    {
+        "cryptomilk/nightcity.nvim",
+        opts = function ()
+            return require("plugins.configs.colourscheme.colourscheme")
+        end,
+        config=function(_, opts)
+            require("nightcity").setup(opts.nightcity)
+        end,
     },
 	{
 		"williamboman/mason.nvim",
@@ -134,6 +154,28 @@ local plugins = {
         config = function(_, opts)
             require("lualine").setup(opts)
         end,
+    },
+    { 
+        dir = "~/dev/neovim/plugins/colour_picker.nvim",
+        opts = function (_, opts)
+            -- return require("")
+        end,
+        config = function()
+            require("colour_picker")
+        end,
+    },
+    {
+        dir="~/dev/neovim/plugins/terminal.nvim/",
+        config=function ()
+            require("terminal")
+        end
+    },
+    {
+        dir="~/dev/neovim/plugins/mycolour/",
+        config=function ()
+            -- print(require("colorbuddy").colorscheme("mycolour"))
+            return require("colorbuddy").colorscheme("mycolour")
+        end
     },
 
 }

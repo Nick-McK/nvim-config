@@ -9,7 +9,7 @@ M.general = {
 
         -- open theme switcher
         ["<leader>th"] = {function()
-            require("plugins.configs.colourscheme.colour_picker").open_theme_window()
+            require("colour_picker").open_theme_window()
         end, "Opens Theme Switcher Menu"},
 
         -- Telescope
@@ -32,30 +32,28 @@ M.general = {
         -- open horizontal terminal
         ["<leader>ht"] = {
             function()
-                local term = require("core.terminal")
-                print("wtf is this", term.terminal_horizontal())
+                require("terminal").terminal_horizontal()
             end, "Opens Horizontal Terminal" },
         ["<leader>vt"] = {
             function()
-                local term = require("core.terminal")
-                print("wtf is this", term.terminal_vertical())
-            end, "Opens Horizontal Terminal" },
+                require("terminal").terminal_vertical()
+            end, "Opens Vertical Terminal" },
         -- DEBUG WINDOW
         ["<leader>dw"] = { function()
-            local term = require("core.terminal")
+            local term = require("terminal")
             term.debug()
         end, "Terminal debugging" },
         -- opens floating terminal
         ["<leader>ft"] = {
             function()
-                local term = require("core.terminal")
+                local term = require("terminal")
                 term.open_term()
                 -- print("wtf is this", term.term_table[1].id)
             end, "Opens Floating Terminal" },
         -- Hide terminal
         ["<A-h>"] = {
             function()
-                local term = require("core.terminal")
+                local term = require("terminal")
                 term.hide_terminals()
                 
                 -- print("wtf is this", term.term_table[1].win)
@@ -63,7 +61,7 @@ M.general = {
         -- Show floating terminal
         ["<leader>sft"] = {
             function()
-                local term = require("core.terminal")
+                local term = require("terminal")
                 term.show_terminal()
                 -- print("wtf is this", term.term_table[1].win)
             end, "Shows Terminals" },
@@ -77,7 +75,7 @@ M.general = {
     -- INSERT MODE
     i = {
         ["<A-h>"] = {function()
-            require("core.terminal").hide_terminals()
+            require("terminal").hide_terminals()
         end, "Hide Terminal"},
         ["<C-h>"] = {"<LEFT>", "Move Left in Insert Mode"},
         ["<C-j>"] = {"<DOWN>", "Move Down in Insert Mode"},
@@ -91,7 +89,7 @@ M.general = {
         ["<C-x>"] = { [[<C-\><C-n>]], "Exit Terminal Mode" },
         -- Hide terminal
         ["<A-h>"] = {function()
-            require("core.terminal").hide_terminals()
+            require("terminal").hide_terminals()
         end, "Hide Terminal"},
     }
 

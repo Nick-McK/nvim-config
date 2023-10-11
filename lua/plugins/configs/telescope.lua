@@ -36,6 +36,9 @@ local options = {
 
             },
         },
+        file_ignore_patterns = {
+            "node_modules", -- ignore files inside node_modules
+        },
     }
 }
 

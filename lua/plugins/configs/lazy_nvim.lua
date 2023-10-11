@@ -13,6 +13,9 @@ local opts = {
       not_loaded = "",
     },
   },
+    dev = {
+        path = "~/dev/neovim/plugins/",
+    },
 
 }
 
