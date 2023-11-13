@@ -48,16 +48,19 @@ M.general = {
             function()
                 local term = require("terminal")
                 term.open_term()
-                -- print("wtf is this", term.term_table[1].id)
             end, "Opens Floating Terminal" },
         -- Hide terminal
         ["<A-h>"] = {
             function()
                 local term = require("terminal")
                 term.hide_terminals()
-                
-                -- print("wtf is this", term.term_table[1].win)
             end, "Shows Terminals" },
+
+        ["<leader>st"] = {function ()
+            local term = require("terminal").show_terminal_list()
+        end, "Shows a list of terminals"},
+
+
         -- Show floating terminal
         ["<leader>sft"] = {
             function()
@@ -91,6 +94,11 @@ M.general = {
         ["<A-h>"] = {function()
             require("terminal").hide_terminals()
         end, "Hide Terminal"},
+    },
+    -- Visual Mode
+    v = {
+        ["<C-e>"] = {"$", "Move to End of Line"},
+        ["<C-b>"] = {"^", "Move to Beginning of Line"}
     }
 
 }

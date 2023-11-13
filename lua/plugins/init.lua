@@ -18,7 +18,7 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("rose-pine").setup(opts.rose_pine)
             -- default to rose-pine theme
-			-- vim.cmd[[colorscheme rose-pine]]
+			vim.cmd[[colorscheme rose-pine]]
 		end,
 	},
     {
@@ -144,6 +144,19 @@ local plugins = {
         end,
     },
     {
+        "windwp/nvim-autopairs",
+        opts = {
+            fast_wrap = {},
+            disable_filetype= { "TelescopePrompt", "vim" },
+        },
+        config = function(_,opts)
+            require("nvim-autopairs").setup(opts)
+
+            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+            require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+    },
+    {
         "nvim-lualine/lualine.nvim",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
@@ -174,7 +187,7 @@ local plugins = {
         dir="~/dev/neovim/plugins/mycolour/",
         config=function ()
             -- print(require("colorbuddy").colorscheme("mycolour"))
-            return require("colorbuddy").colorscheme("mycolour")
+            -- return require("colorbuddy").colorscheme("mycolour")
         end
     },
 

@@ -58,8 +58,32 @@ lspconfig.lua_ls.setup {
 	end
 }
 -- this sets up the lsp but I would like it to be more user-friendly by adding in something like lspconfig_installed = {"pyright", "ts_server"}
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for all available language servers
 lspconfig["pyright"].setup{
 	capabilities = options.capabilities
+}
+-- lspconfig["tsserver"].setup{
+--     capabilities = options.capabilities
+-- }
+lspconfig.svelte.setup{
+    capabilities = options.capabilities,
+    filetypes = {
+        "svelte",
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+    },
+}
+
+lspconfig.html.setup{
+    capabilities = options.capabilities,
+}
+lspconfig.cssls.setup{
+    capabilities = options.capabilities,
+}
+lspconfig.tailwindcss.setup{
+    capabilities = options.capabilities,
 }
 
 
