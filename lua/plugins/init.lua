@@ -72,6 +72,21 @@ local plugins = {
 			require("mason").setup(opts)
 		end,
 	},
+    {
+        "nvim-tree/nvim-tree.lua",
+        opts = function ()
+            return require("plugins.configs.nvim_tree")
+        end,
+        config = function (_, opts)
+            require("nvim-tree").setup(opts)
+        end
+    },
+    {
+        "nvim-tree/nvim-web-devicons",
+        config = function ()
+            require("nvim-web-devicons").setup({})
+        end
+    },
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -168,7 +183,40 @@ local plugins = {
             require("lualine").setup(opts)
         end,
     },
-    { 
+    -- Bufferline
+    {
+        "akinsho/bufferline.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = function ()
+            return require("plugins.configs.bufferline")
+        end,
+        config = function(_, opts)
+            require("bufferline").setup(opts)
+        end,
+    },
+    -- TODO: highlighting
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = function ()
+            return require "plugins.configs.todo_comments"
+        end,
+        config = function (_, opts)
+            require "todo-comments".setup(opts)
+        end
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function ()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        config = function ()
+            require("which-key").setup({})
+        end
+    },
+    {
         dir = "~/dev/neovim/plugins/colour_picker.nvim",
         opts = function (_, opts)
             -- return require("")

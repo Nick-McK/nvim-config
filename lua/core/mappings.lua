@@ -1,5 +1,5 @@
 local M = {}
-
+-- TODO: Sort all these out and format them in some way
 M.general = {
     n = {
         ["<C-q>"] = { ":qa!<CR>", "Force quite all no saving" },
@@ -12,10 +12,7 @@ M.general = {
             require("colour_picker").open_theme_window()
         end, "Opens Theme Switcher Menu"},
 
-        -- Telescope
-        ["<leader>ff"] = { "<CMD>:Telescope find_files<CR>", "Find Files" },
-        ["<C-n>"] = { "<CMD>:Ex<CR>", "Opens File Tree" },
-
+        
         -- Open terminal
         --["<leader>ht"] = {"<CMD>:term<CR>", "Opens Horizontal Terminal"},
 
@@ -73,6 +70,44 @@ M.general = {
             function()
                 require('treesitter-context').go_to_context()
             end, "Jumps to Current Context" },
+
+
+
+
+        -- PLUGINS
+        ------ BUFFERLINE ------
+        ["<leader>1"] = { ":BufferLineGoToBuffer 1<CR>", "Go To Buffer 1" },
+        ["<leader>2"] = { ":BufferLineGoToBuffer 2<CR>", "Go To Buffer 2" },
+        ["<leader>3"] = { ":BufferLineGoToBuffer 3<CR>", "Go To Buffer 3" },
+        ["<leader>4"] = { ":BufferLineGoToBuffer 4<CR>", "Go To Buffer 4" },
+        ["<leader>5"] = { ":BufferLineGoToBuffer 5<CR>", "Go To Buffer 5" },
+        ["<leader>6"] = { ":BufferLineGoToBuffer 6<CR>", "Go To Buffer 6" },
+        ["<leader>7"] = { ":BufferLineGoToBuffer 7<CR>", "Go To Buffer 7" },
+        ["<leader>8"] = { ":BufferLineGoToBuffer 8<CR>", "Go To Buffer 8" },
+        ["<leader>9"] = { ":BufferLineGoToBuffer 9<CR>", "Go To Buffer 9" },
+
+        -- Close Buffer
+        ["<leader>x"] = { ":BufferLinePickClose<CR>", "Pick a Buffer To Close" },
+        -- Cycle Buffers
+        ["<tab>"] = { ":BufferLineCycleNext<CR>", "Cycle Buffers Right" },
+        ["<S-tab>"] = { ":BufferLineCyclePrev<CR>", "Cycle Buffers Left" },
+        
+
+        ------ BUFFERLINE END ------
+        --
+        ------ NVIM TREE ------
+
+        ["<C-n>"] = { ":NvimTreeToggle<CR>", "Toggle Nvim Tree" },
+        ["<leader>e"] = { ":NvimTreeFocus<CR>", "Focus Nvim Tree" },
+        ------ NVIM TREE END ------
+        --
+        ------ TELESCOPE ------
+        ["<leader>ff"] = { ":Telescope find_files<CR>", "Find File" },
+        ["<A-m>"] = { ":Telescope lsp_document_symbols symbols=function<CR>", "Search Functions in CurBuf" },
+        ------ TELESCOPE END ------
+        --
+        ------ TODO COMMENTS ------
+        ["td"] = { ":TodoQuickFix<CR>", "Open Quick Fix for ToDo" },
     },
 
     -- INSERT MODE

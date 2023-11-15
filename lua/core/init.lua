@@ -22,6 +22,9 @@ opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
 
+-- disable netrw in favour of nvim tree
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 
 -- disable vim startup - this might not be needed, as long as we don't print anything
 -- just leave printing and info to the dashboard on startup
