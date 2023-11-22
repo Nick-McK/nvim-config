@@ -5,8 +5,11 @@ local g = vim.g
 g.mapleader = " "
 opt.cursorline = false
 
-require("core.mappings")
-require("core.utils")
+local mappings = require("core.mappings")
+local utils = require("core.utils")
+require"core.globals"
+-- load mappings
+utils.load_mappings(mappings)
 
 -- line numbering
 opt.number = true
@@ -34,3 +37,10 @@ opt.softtabstop = 4
 -- Word wrapping with h and l
 opt.whichwrap:append "<>[]hl"
 vim.cmd [[set termguicolors]]
+-- always go into insert mode on terminal enter
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+    callback=function() 
+        if vim.bo.buftype == "terminal" then 
+            vim.cmd('startinsert')
+        end
+    end})

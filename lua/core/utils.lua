@@ -1,31 +1,24 @@
 local M = {}
 
-M.load_config = function()
-	local config = require("plugins.init.lua")
-
-	return config
+-- keymaps are defined as ["keymap_to_set"] = {"command_to_execute", options}
+-- options is anything that can be passed to keymap.set() in the table arg and doesn't need to be wrapped within a table
+--@param mappings: table of mappings defined in mappings.lua
+M.load_mappings = function(mappings)
+    for mode, maps in pairs(mappings.general) do
+       for key_map, cmd in pairs(maps) do
+            -- Convert everything after the command to execute to be options of
+            -- keymap.set()
+            local options = {}
+            local execute_cmd = cmd
+            if type(cmd) == "table" then
+                execute_cmd = cmd[1]
+                options = vim.tbl_deep_extend("force", options, cmd)
+                options[1] = nil
+            end
+            vim.keymap.set(mode, key_map, execute_cmd, options)
+            -- print("cmds: ", vim.inspect(cmd))
+            -- vim.keymap.set(mode, key_map, cmd[1], cmd)
+        end
+    end
 end
-
--- Loop through all the mappings in the mappings file and set them as keymaps
-M.load_mappings = function()
-	local mappings = require("core.mappings")
-	for mode, modeValues in pairs(mappings.general) do
-		for set_bind, command in pairs(modeValues) do
-			-- DEBUGGING
-			--print("In mode", mode)
-			--print("setting bind", set_bind)
-			--print("with command", command[1])
-			--print("with command", command[2])
-			if command[2] == "Toggle Comment" then
-				--print("com", command[2])
-				vim.keymap.set(mode, set_bind, command[1], {expr=true})
-			else
-				vim.keymap.set(mode, set_bind, command[1])
-			end
-		end
-	end
-end
-
-M.load_mappings()
 return M
-
