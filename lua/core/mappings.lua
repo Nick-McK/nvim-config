@@ -22,8 +22,8 @@ M.general = {
         ["<C-h>"] = { "<C-w>h", desc="Move Left a Window" },
         ["<C-l>"] = { "<C-w>l", desc="Move Right a Window" },
         -- Window splits
-        ["<leader>hw"] = { "<C-w>s", desc="New Horizontal Window" },
-        ["<leader>vw"] = { "<C-w>v", desc="New Vertical Window" },
+        ["<leader>wh"] = { "<CMD>split | wincmd j<CR>", desc="New Horizontal Window" },
+        ["<leader>wv"] = { "<CMD>vsp | wincmd l<CR>", desc="New Vertical Window" },
 
 
         -- open horizontal terminal
@@ -101,10 +101,6 @@ M.general = {
         ["<leader>e"] = { ":NvimTreeFocus<CR>", desc="Focus Nvim Tree" },
         ------ NVIM TREE END ------
         --
-        ------ TELESCOPE ------
-        ["<leader>ff"] = { ":Telescope find_files<CR>", desc="Find File" },
-        ["<leader>fm"] = { ":Telescope lsp_document_symbols symbols=function<CR>", desc="Search Functions in CurBuf" },
-        ------ TELESCOPE END ------
         --
         ------ TODO COMMENTS ------
         ["td"] = { ":TodoQuickFix<CR>", desc="Open Quick Fix for ToDo" },
@@ -148,5 +144,34 @@ M.term = {
         ["<C-n>"] = { "<C-\\><C-n>", desc="Enter Terminal Normal Mode" },
     }
 }
+-- TELESCOPE -- 
+M.telescope = {
+    n = {
+        ["<leader>ff"] = { ":Telescope find_files<CR>", desc="Find File" },
+        ["<leader>fm"] = { ":Telescope lsp_document_symbols symbols=function<CR>", desc="Search Functions in CurBuf" },
+        ["<leader>fw"] = {function ()
+            require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
+        end, desc="Find Word (root)"},
+        ["<leader>fM"] = {":Telescope man_pages<CR>", desc="Find Man Page"},
+        ["<leader>fH"] = {":Telescope help_pages<CR>", desc="Find Help Page"},
+        ["<leader>fb"] = {":Telescope current_buffer_fuzzy_find<CR>", desc="Search Buffer"},
+        ["<leader>fd"] = {":Telescope diagnostics bufnr=0<CR>", desc="Current Buffer Diagnostics"},
+        ["<leader>fD"] = {":Telescope diagnostics<CR>", desc="Workspace Diagnostics"},
+        ["<leader>fg"] = {":Telescope live_grep<CR>", desc="Grep (root)"},
+        ["<leader>;"] = {":Telescope command_history<CR>", desc="Grep (root)"},
+        ["<leader>fs"] = {
+            function()
+                require("telescope.builtin").lsp_document_symbols({
+                    symbols = require("utils.symbols").symbols
+                })
+            end, desc="Find Symbols in Buffer"},
 
+
+    },
+    v = {
+        ["<leader>fw"] = {function ()
+            require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
+        end, desc="Find Word (root)"},
+    }
+}
 return M
