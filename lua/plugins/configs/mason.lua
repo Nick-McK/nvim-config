@@ -1,4 +1,10 @@
 local options = {
+    ensure_installed = {
+        "pyright",
+        "debugpy",
+        "bash-language-server",
+        "lua-language-server",
+    },
 	keymaps = {
 		toggle_server_expand = "<CR>",
 		install_server = "i",

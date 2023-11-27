@@ -41,11 +41,11 @@ M.general = {
             term.debug()
         end, desc="Terminal debugging" },
         -- opens floating terminal
-        ["<leader>ft"] = {
-            function()
-                local term = require("terminal")
-                term.open_term()
-            end, desc="Opens Floating Terminal" },
+        -- ["<leader>ft"] = {
+        --     function()
+        --         local term = require("terminal")
+        --         term.open_term()
+        --     end, desc="Opens Floating Terminal" },
         -- Hide terminal
         ["<A-h>"] = {
             function()
@@ -152,6 +152,9 @@ M.telescope = {
         ["<leader>fw"] = {function ()
             require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
         end, desc="Find Word (root)"},
+        ["<leader>fW"] = {function ()
+            require("telescope.builtin").grep_string({word_match="-w"})
+        end, desc="Find Word (root)"},
         ["<leader>fM"] = {":Telescope man_pages<CR>", desc="Find Man Page"},
         ["<leader>fH"] = {":Telescope help_pages<CR>", desc="Find Help Page"},
         ["<leader>fb"] = {":Telescope current_buffer_fuzzy_find<CR>", desc="Search Buffer"},
@@ -165,6 +168,7 @@ M.telescope = {
                     symbols = require("utils.symbols").symbols
                 })
             end, desc="Find Symbols in Buffer"},
+        ["<leader>ft"] = {":Telescope colorscheme<CR>", desc="Find Colour Schemes"}
 
 
     },
@@ -172,6 +176,21 @@ M.telescope = {
         ["<leader>fw"] = {function ()
             require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
         end, desc="Find Word (root)"},
+    }
+}
+
+M.dap = {
+    n = {
+        ["<leader>db"] = {"<cmd>DapToggleBreakpoint<CR>", desc="Toggle Breakpoint"}
+    },
+}
+
+M.dap_python = {
+    n={
+        ["<leader>dpr"] = {function()
+            require("dap-python").test_method()
+            
+        end}
     }
 }
 return M

@@ -217,27 +217,68 @@ local plugins = {
         end
     },
     {
-        dir = "~/dev/neovim/plugins/colour_picker.nvim",
-        opts = function (_, opts)
-            -- return require("")
-        end,
+        'chipsenkbeil/distant.nvim',
+        branch = 'v0.3',
         config = function()
-            require("colour_picker")
-        end,
-    },
-    {
-        dir="~/dev/neovim/plugins/terminal.nvim/",
-        config=function ()
-            require("terminal")
+            require('distant'):setup()
         end
     },
     {
-        dir="~/dev/neovim/plugins/mycolour/",
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+            "mfussenegger/nvim-dap"
+        },
         config=function ()
-            -- print(require("colorbuddy").colorscheme("mycolour"))
-            -- return require("colorbuddy").colorscheme("mycolour")
+            local dap = require("dap")
+            local dapui = require("dapui")
+            dapui.setup()
+            dap.listeners.after.event_initialized["dapui_config"] = function ()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function ()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function ()
+                dapui.close()
+            end
         end
+
     },
+    {
+        "mfussenegger/nvim-dap-python",
+        ft="python",
+        dependencies = {
+            "mfussenegger/nvim-dap",-- python adapter plugin
+            "rcarriga/nvim-dap-ui" -- dap ui
+        },
+        config=function (_,opts)
+            local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+            require("dap-python").setup(path)
+        end
+
+    },
+    -- {
+    --     dir = "~/dev/neovim/plugins/colour_picker.nvim",
+    --     opts = function (_, opts)
+    --         -- return require("")
+    --     end,
+    --     config = function()
+    --         require("colour_picker")
+    --     end,
+    -- },
+    -- {
+    --     dir="~/dev/neovim/plugins/terminal.nvim/",
+    --     config=function ()
+    --         require("terminal")
+    --     end
+    -- },
+    -- {
+    --     dir="~/dev/neovim/plugins/mycolour/",
+    --     config=function ()
+    --         -- print(require("colorbuddy").colorscheme("mycolour"))
+    --         -- return require("colorbuddy").colorscheme("mycolour")
+    --     end
+    -- },
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",
