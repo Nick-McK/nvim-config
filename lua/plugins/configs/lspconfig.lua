@@ -83,6 +83,20 @@ lspconfig.cssls.setup {
 lspconfig.tailwindcss.setup {
     capabilities = options.capabilities,
 }
+lspconfig.gopls.setup {
+	capabilities = options.capabilities,
+}
+lspconfig.clangd.setup {
+	capabilities = options.capabilities,
+}
+-- lspconfig.ccls.setup {
+-- 	capabilities = options.capabilities,
+-- 	init_options = {
+-- 		cache = {
+-- 			directory = ".ccls-cache";
+-- 		};
+-- 	}
+-- }
 
 
 vim.api.nvim_create_autocmd('LspAttach', {

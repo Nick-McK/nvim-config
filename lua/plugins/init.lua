@@ -1,14 +1,52 @@
 local plugins = {
 	"nvim-lua/plenary.nvim",
-    {
-        "tjdevries/colorbuddy.nvim",
-    },
-    {
+	-- {
+	-- 	"dstein64/vim-startuptime",
+	-- 	cmd = "StartupTime",
+	-- 	config = function()
+	-- 		vim.g.startuptime_tries = 10
+	-- 	end,
+	-- },
+	{
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.select(...)
+			end
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.input = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.input(...)
+			end
+		end,
+	},
+	{
+		"scottmckendry/cyberdream.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("cyberdream").setup({
+				-- Recommended - see "Configuring" below for more config options
+				transparent = true,
+				italic_comments = true,
+				hide_fillchars = true,
+				borderless_telescope = true,
+			})
+			vim.cmd("colorscheme cyberdream") -- set the colorscheme
+		end,
+	},
+	{"tjdevries/colorbuddy.nvim"},
+	{"marko-cerovac/material.nvim"},
+	{"lunarvim/horizon.nvim"},
+	{
 		-- "voidekh/kyotonight.vim",
 		"rose-pine/neovim",
-        -- "marko-cerovac/material.nvim",
-        -- "embark-theme/vim",
-        -- name="embark",
+		-- "marko-cerovac/material.nvim",
+		-- "embark-theme/vim",
+		-- name="embark",
 		lazy=false,
 		priority = 1000,
 		opts = function()
@@ -17,22 +55,28 @@ local plugins = {
 		config = function(_, opts)
 			-- setup must be called before initialising the colour scheme
 			require("rose-pine").setup(opts.rose_pine)
-            -- default to rose-pine theme
+			-- default to rose-pine theme
 			vim.cmd[[colorscheme rose-pine]]
 		end,
 	},
-    {
+	{
+		"craftzdog/solarized-osaka.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
+	{
 		"folke/tokyonight.nvim",
-        opts = function ()
-            return require("plugins.configs.colourscheme.colourscheme")
-        end,
-        config = function(_,opts)
-            require("tokyonight").setup(opts.tokyonight)
-        end,
-    },
-    {
+		opts = function ()
+			return require("plugins.configs.colourscheme.colourscheme")
+		end,
+		config = function(_,opts)
+			require("tokyonight").setup(opts.tokyonight)
+		end,
+	},
+	{
 		"catppuccin/nvim",
-        lazy=false,
+		lazy=false,
 		priority = 1000,
 		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
@@ -41,10 +85,10 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("catppuccin").setup(opts.catppuccin)
 		end,
-    },
-    {
+	},
+	{
 		"rebelot/kanagawa.nvim",
-        lazy=false,
+		lazy=false,
 		priority = 1000,
 		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
@@ -53,16 +97,16 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("kanagawa").setup(opts.kanagawa)
 		end,
-    },
-    {
-        "cryptomilk/nightcity.nvim",
-        opts = function ()
-            return require("plugins.configs.colourscheme.colourscheme")
-        end,
-        config=function(_, opts)
-            require("nightcity").setup(opts.nightcity)
-        end,
-    },
+	},
+	{
+		"cryptomilk/nightcity.nvim",
+		opts = function ()
+			return require("plugins.configs.colourscheme.colourscheme")
+		end,
+		config=function(_, opts)
+			require("nightcity").setup(opts.nightcity)
+		end,
+	},
 	{
 		"williamboman/mason.nvim",
 		opts = function()
@@ -72,21 +116,21 @@ local plugins = {
 			require("mason").setup(opts)
 		end,
 	},
-    {
-        "nvim-tree/nvim-tree.lua",
-        opts = function ()
-            return require("plugins.configs.nvim_tree")
-        end,
-        config = function (_, opts)
-            require("nvim-tree").setup(opts)
-        end
-    },
-    {
-        "nvim-tree/nvim-web-devicons",
-        config = function ()
-            require("nvim-web-devicons").setup({})
-        end
-    },
+	{
+		"nvim-tree/nvim-tree.lua",
+		opts = function ()
+			return require("plugins.configs.nvim_tree")
+		end,
+		config = function (_, opts)
+			require("nvim-tree").setup(opts)
+		end
+	},
+	{
+		"nvim-tree/nvim-web-devicons",
+		config = function ()
+			require("nvim-web-devicons").setup({})
+		end
+	},
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -95,16 +139,16 @@ local plugins = {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 		opts = function()
 			return require("plugins.configs.telescope")
 		end,
-        config = function(_, opts)
-            require("telescope").setup(opts)
+		config = function(_, opts)
+			require("telescope").setup(opts)
 
-        end,
+		end,
 
 	},
 	{
@@ -121,13 +165,13 @@ local plugins = {
 	},
 	{
 		"numToStr/Comment.nvim",
-		 opts = function()
-		 	return require ("plugins.configs.comment")
-		 end,
-		 config = function(_, opts)
-		 	require("Comment").setup({})
-		 end,
-		 lazy=false,
+		opts = function()
+			return require ("plugins.configs.comment")
+		end,
+		config = function(_, opts)
+			require("Comment").setup({})
+		end,
+		lazy=false,
 	},
 
 	{
@@ -148,152 +192,189 @@ local plugins = {
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
-                "onsails/lspkind.nvim", -- cmp icons and sources
+				"onsails/lspkind.nvim", -- cmp icons and sources
 			},
 		},
 		opts = function()
 			return require("plugins.configs.cmp")
 		end,
 		config = function(_, opts)
-            require("cmp").setup(opts)
-        end,
-    },
-    {
-        "windwp/nvim-autopairs",
-        opts = {
-            fast_wrap = {},
-            disable_filetype= { "TelescopePrompt", "vim" },
-        },
-        config = function(_,opts)
-            require("nvim-autopairs").setup(opts)
+			require("cmp").setup(opts)
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		opts = {
+			fast_wrap = {},
+			disable_filetype= { "TelescopePrompt", "vim" },
+		},
+		config = function(_,opts)
+			require("nvim-autopairs").setup(opts)
 
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-    },
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        opts = function()
-            return require("plugins.configs.lualine")
-        end,
-        config = function(_, opts)
-            require("lualine").setup(opts)
-        end,
-    },
-    -- Bufferline
-    {
-        "akinsho/bufferline.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = function ()
-            return require("plugins.configs.bufferline")
-        end,
-        config = function(_, opts)
-            require("bufferline").setup(opts)
-        end,
-    },
-    -- TODO: highlighting
-    {
-        "folke/todo-comments.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        opts = function ()
-            return require "plugins.configs.todo_comments"
-        end,
-        config = function (_, opts)
-            require "todo-comments".setup(opts)
-        end
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        init = function ()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        config = function ()
-            require("which-key").setup({})
-        end
-    },
-    {
-        'chipsenkbeil/distant.nvim',
-        branch = 'v0.3',
-        config = function()
-            require('distant'):setup()
-        end
-    },
-    {
-        "rcarriga/nvim-dap-ui",
-        dependencies = {
-            "mfussenegger/nvim-dap"
-        },
-        config=function ()
-            local dap = require("dap")
-            local dapui = require("dapui")
-            dapui.setup()
-            dap.listeners.after.event_initialized["dapui_config"] = function ()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated["dapui_config"] = function ()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function ()
-                dapui.close()
-            end
-        end
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = function()
+			return require("plugins.configs.lualine")
+		end,
+		config = function(_, opts)
+			require("lualine").setup(opts)
+		end,
+	},
+	-- Bufferline
+	{
+		"akinsho/bufferline.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = function ()
+			return require("plugins.configs.bufferline")
+		end,
+		config = function(_, opts)
+			require("bufferline").setup(opts)
+		end,
+	},
+	-- TODO: highlighting
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = function ()
+			return require "plugins.configs.todo_comments"
+		end,
+		config = function (_, opts)
+			require "todo-comments".setup(opts)
+		end
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function ()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		config = function ()
+			require("which-key").setup({})
+		end
+	},
+	{
+		'chipsenkbeil/distant.nvim',
+		branch = 'v0.3',
+		config = function()
+			require('distant'):setup()
+		end
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap"
+		},
+		config=function ()
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dapui.setup()
+			dap.listeners.after.event_initialized["dapui_config"] = function ()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function ()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function ()
+				dapui.close()
+			end
+		end
 
-    },
-    {
-        "mfussenegger/nvim-dap-python",
-        ft="python",
-        dependencies = {
-            "mfussenegger/nvim-dap",-- python adapter plugin
-            "rcarriga/nvim-dap-ui" -- dap ui
-        },
-        config=function (_,opts)
-            local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-            require("dap-python").setup(path)
-        end
+	},
+	{
+		"mfussenegger/nvim-dap-python",
+		ft="python",
+		dependencies = {
+			"mfussenegger/nvim-dap",-- python adapter plugin
+			"rcarriga/nvim-dap-ui" -- dap ui
+		},
+		config=function (_,opts)
+			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+			require("dap-python").setup(path)
+		end
 
-    },
-    -- {
-    --     dir = "~/dev/neovim/plugins/colour_picker.nvim",
-    --     opts = function (_, opts)
-    --         -- return require("")
-    --     end,
-    --     config = function()
-    --         require("colour_picker")
-    --     end,
-    -- },
-    -- {
-    --     dir="~/dev/neovim/plugins/terminal.nvim/",
-    --     config=function ()
-    --         require("terminal")
-    --     end
-    -- },
-    -- {
-    --     dir="~/dev/neovim/plugins/mycolour/",
-    --     config=function ()
-    --         -- print(require("colorbuddy").colorscheme("mycolour"))
-    --         -- return require("colorbuddy").colorscheme("mycolour")
-    --     end
-    -- },
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     opts = {
-    --         -- add any options here
-    --     },
-    --     dependencies = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         -- "rcarriga/nvim-notify",
-    --     }
-    -- }
+	},
+	{
+		"linux-cultist/venv-selector.nvim",
+		dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
+		opts = {
+			-- path = "~/.pyvenv/", -- local
+			path = "/home/nick/laptop/dev/test/python-venv/", -- laptop mounted to desktop
+			-- path = "~/.pyvenv/",							  -- Work VM
+			-- path = "/mnt/doddie/dev/venvs/",
+			parents = 0,
+			name = {".venv", "Factorio-AI", "venv", "server-test"},
+			-- Your options go here
+			-- name = "venv",
+			auto_refresh = true 
+		},
+		event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+		keys = {
+			-- Keymap to open VenvSelector to pick a venv.
+			{ "<leader>vs", "<cmd>VenvSelect<cr>" },
+			-- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+			{ "<leader>vc", "<cmd>VenvSelectCached<cr>" },
+		}
+	},
+	-- {
+	--     dir = "~/dev/neovim/plugins/colour_picker.nvim",
+	--     opts = function (_, opts)
+	--         -- return require("")
+	--     end,
+	--     config = function()
+	--         require("colour_picker")
+	--     end,
+	-- },
+	-- {
+	--     dir="~/dev/neovim/plugins/terminal.nvim/",
+	--     config=function ()
+	--         require("terminal")
+	--     end
+	-- },
+	-- {
+	--     dir="~/dev/neovim/plugins/mycolour/",
+	--     config=function ()
+	--         -- print(require("colorbuddy").colorscheme("mycolour"))
+	--         -- return require("colorbuddy").colorscheme("mycolour")
+	--     end
+	-- },
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			-- "rcarriga/nvim-notify",
+		}
+	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		vscode = true,
+		---@type Flash.Config
+		opts = {},
+		-- stylua: ignore
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+			{ "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
+	},
 
 }
 

@@ -19,11 +19,13 @@ opt.relativenumber = true
 
 
 -- indenting
-opt.expandtab = true
+opt.expandtab = false
 opt.shiftwidth = 4 -- this is the actual indenting size
 opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
+
+opt.cursorline = true
 
 -- disable netrw in favour of nvim tree
 --vim.g.loaded_netrw = 1

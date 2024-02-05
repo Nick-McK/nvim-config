@@ -4,6 +4,7 @@ local options = {
         "debugpy",
         "bash-language-server",
         "lua-language-server",
+	"clangd"
     },
 	keymaps = {
 		toggle_server_expand = "<CR>",

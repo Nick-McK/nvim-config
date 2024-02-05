@@ -3,7 +3,6 @@ local M = {}
 M.general = {
     n = {
         ["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
-        [";"] = { ":", desc="Open Command Mode" },
         ["<C-b>"] = { "^", desc="Move to Beginning of Line" },
         ["<C-e>"] = { "$", desc="Move to End of Line" },
 
@@ -11,8 +10,7 @@ M.general = {
         ["<leader>th"] = { function()
             require("colour_picker").open_theme_window()
         end, desc="Opens Theme Switcher Menu" },
-
-
+	
         -- Open terminal
         --["<leader>ht"] = {"<CMD>:term<CR>", "Opens Horizontal Terminal"},
 
@@ -22,10 +20,19 @@ M.general = {
         ["<C-h>"] = { "<C-w>h", desc="Move Left a Window" },
         ["<C-l>"] = { "<C-w>l", desc="Move Right a Window" },
         -- Window splits
-        ["<leader>wh"] = { "<CMD>split | wincmd j<CR>", desc="New Horizontal Window" },
-        ["<leader>wv"] = { "<CMD>vsp | wincmd l<CR>", desc="New Vertical Window" },
+        ["<leader>hw"] = { "<CMD>split | wincmd j<CR>", desc="New Horizontal Window" },
+        ["<leader>vw"] = { "<CMD>vsp | wincmd l<CR>", desc="New Vertical Window" },
+	
+	-- resize splits better
+	["<A-H>"] = { "<CMD>wincmd 2 <<CR>"},
+	["<A-J>"] = { "<CMD>wincmd 2 -<CR>"},
+	["<A-K>"] = { "<CMD>wincmd 2 +<CR>"},
+	["<A-L>"] = { "<CMD>wincmd 2 ><CR>"},
 
-
+	-- Move lines up and down
+	["<A-j>"] = {"<CMD>m .+1<CR>",desc="Move line up"},
+	["<A-k>"] = {"<CMD>m .-2<CR>",desc="Move line up"},
+	
         -- open horizontal terminal
         ["<leader>ht"] = {
             function()
@@ -156,7 +163,7 @@ M.telescope = {
             require("telescope.builtin").grep_string({word_match="-w"})
         end, desc="Find Word (root)"},
         ["<leader>fM"] = {":Telescope man_pages<CR>", desc="Find Man Page"},
-        ["<leader>fH"] = {":Telescope help_pages<CR>", desc="Find Help Page"},
+        ["<leader>fH"] = {":Telescope help_tags<CR>", desc="Find Help Page"},
         ["<leader>fb"] = {":Telescope current_buffer_fuzzy_find<CR>", desc="Search Buffer"},
         ["<leader>fd"] = {":Telescope diagnostics bufnr=0<CR>", desc="Current Buffer Diagnostics"},
         ["<leader>fD"] = {":Telescope diagnostics<CR>", desc="Workspace Diagnostics"},
@@ -168,7 +175,9 @@ M.telescope = {
                     symbols = require("utils.symbols").symbols
                 })
             end, desc="Find Symbols in Buffer"},
-        ["<leader>ft"] = {":Telescope colorscheme<CR>", desc="Find Colour Schemes"}
+        ["<leader>ft"] = {function ()
+            require("telescope.builtin").colorscheme({enable_preview=true})
+        end, desc="Find Colour Schemes"}
 
 
     },
@@ -192,5 +201,13 @@ M.dap_python = {
             
         end}
     }
+}
+
+M.lspconfig = {
+	n = {
+		["<leader>li"] = {"<CMD>LspInfo<CR>", desc="LSP Info"},
+		["<leader>lr"] = {"<CMD>LspRestart<CR>", desc="LSP Restart"},
+
+	}
 }
 return M
