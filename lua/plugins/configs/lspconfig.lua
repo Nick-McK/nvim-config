@@ -55,6 +55,7 @@ lspconfig.lua_ls.setup {
 lspconfig["pyright"].setup {
     capabilities = options.capabilities,
     pyright = {
+		-- Specify libraries that the lsp should use for code completion
         library = {
             "~/dev/Factorio/"
         }
@@ -86,17 +87,13 @@ lspconfig.tailwindcss.setup {
 lspconfig.gopls.setup {
 	capabilities = options.capabilities,
 }
+
+-- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
+-- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
 lspconfig.clangd.setup {
+	cmd = {"clangd", "--compile-commands-dir=."},
 	capabilities = options.capabilities,
 }
--- lspconfig.ccls.setup {
--- 	capabilities = options.capabilities,
--- 	init_options = {
--- 		cache = {
--- 			directory = ".ccls-cache";
--- 		};
--- 	}
--- }
 
 
 vim.api.nvim_create_autocmd('LspAttach', {
