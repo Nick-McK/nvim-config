@@ -56,7 +56,7 @@ local plugins = {
 			-- setup must be called before initialising the colour scheme
 			require("rose-pine").setup(opts.rose_pine)
 			-- default to rose-pine theme
-			vim.cmd[[colorscheme rose-pine]]
+			-- vim.cmd[[colorscheme rose-pine]]
 		end,
 	},
 	{
@@ -375,7 +375,15 @@ local plugins = {
 			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 		},
 	},
-
+	{
+		"echasnovski/mini.animate",
+		opts = function ()
+			return require("plugins.configs.mini_animate")
+		end,
+		config = function(_,opts)
+			require("mini.animate").setup(opts)
+		end,
+	},
 }
 
 local config = require("plugins.configs.lazy_nvim")

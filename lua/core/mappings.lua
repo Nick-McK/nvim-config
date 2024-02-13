@@ -6,6 +6,9 @@ M.general = {
         ["<C-b>"] = { "^", desc="Move to Beginning of Line" },
         ["<C-e>"] = { "$", desc="Move to End of Line" },
 
+		["<C-u>"] = {"<C-u>zz", desc="Half page up"},
+		["<C-d>"] = {"<C-d>zz", desc="Half page down"},
+
         -- open theme switcher
         ["<leader>th"] = { function()
             require("colour_picker").open_theme_window()
@@ -32,6 +35,12 @@ M.general = {
 	-- Move lines up and down
 	["<A-j>"] = {"<CMD>m .+1<CR>",desc="Move line up"},
 	["<A-k>"] = {"<CMD>m .-2<CR>",desc="Move line up"},
+
+		["<leader>le"] = {function()
+			vim.diagnostic.open_float({border = "rounded"})
+			end,
+			desc="Inspect Error Message"
+		},
 	
         -- open horizontal terminal
         ["<leader>ht"] = {
