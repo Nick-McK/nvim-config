@@ -24,6 +24,10 @@ local plugins = {
 		end,
 	},
 	{
+		"ellisonleao/gruvbox.nvim",
+		priority = 1000,
+	},
+	{
 		"scottmckendry/cyberdream.nvim",
 		lazy = false,
 		priority = 1000,
@@ -35,12 +39,14 @@ local plugins = {
 				hide_fillchars = true,
 				borderless_telescope = true,
 			})
-			vim.cmd("colorscheme cyberdream") -- set the colorscheme
+			-- vim.cmd("colorscheme cyberdream") -- set the colorscheme
 		end,
 	},
 	{"tjdevries/colorbuddy.nvim"},
 	{"marko-cerovac/material.nvim"},
-	{"lunarvim/horizon.nvim"},
+	{"lunarvim/horizon.nvim", init=function() vim.cmd[[colorscheme horizon]] end
+
+	},
 	{
 		-- "voidekh/kyotonight.vim",
 		"rose-pine/neovim",
@@ -323,6 +329,12 @@ local plugins = {
 			{ "<leader>vc", "<cmd>VenvSelectCached<cr>" },
 		}
 	},
+	{
+		dir="~/dev/neovim/plugins/minimap/",
+		config=function()
+			require("minimap")
+		end,
+	},
 	-- {
 	--     dir = "~/dev/neovim/plugins/colour_picker.nvim",
 	--     opts = function (_, opts)
@@ -376,12 +388,15 @@ local plugins = {
 		},
 	},
 	{
-		"echasnovski/mini.animate",
-		opts = function ()
-			return require("plugins.configs.mini_animate")
+		"folke/neodev.nvim", opts={}
+	},
+	{
+		"echasnovski/mini.indentscope",
+		opts=function()
+			return require("plugins.configs.mini_indentscope")
 		end,
-		config = function(_,opts)
-			require("mini.animate").setup(opts)
+		config=function (_,opts)
+			return require("mini.indentscope").setup(opts)
 		end,
 	},
 }
