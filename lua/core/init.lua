@@ -6,6 +6,7 @@ g.mapleader = " "
 opt.cursorline = false
 
 local mappings = require("core.mappings")
+local file_mappings = require("core.file_mappings")
 local utils = require("core.utils")
 require"core.globals"
 -- load mappings
@@ -26,6 +27,10 @@ opt.tabstop = 4
 opt.softtabstop = 4
 
 opt.cursorline = true
+opt.colorcolumn = ""
+
+-- Keep 8 lines as a buffer when scrolling
+opt.scrolloff = 8
 
 -- disable netrw in favour of nvim tree
 --vim.g.loaded_netrw = 1
