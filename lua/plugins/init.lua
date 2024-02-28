@@ -26,6 +26,23 @@ local plugins = {
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
+		opts = function()
+			return {
+				contrast = "soft"
+			}
+		end,
+		config = function (_,opts)
+			return require("gruvbox").setup(opts)
+		end
+	},
+	{
+		"sainnhe/gruvbox-material",
+		priority = 1000,
+	},
+	{
+		"luisiacc/gruvbox-baby",
+		priority = 1000,
+		init = function() vim.cmd[[colorscheme gruvbox-baby]] end,
 	},
 	{
 		"scottmckendry/cyberdream.nvim",
@@ -44,7 +61,7 @@ local plugins = {
 	},
 	{"tjdevries/colorbuddy.nvim"},
 	{"marko-cerovac/material.nvim"},
-	{"lunarvim/horizon.nvim", init=function() vim.cmd[[colorscheme horizon]] end
+	{"lunarvim/horizon.nvim", --init=function() vim.cmd[[colorscheme horizon]] end
 
 	},
 	{
@@ -398,6 +415,14 @@ local plugins = {
 		config=function (_,opts)
 			return require("mini.indentscope").setup(opts)
 		end,
+	},
+	{
+		'stevearc/oil.nvim',
+		opts = {},
+		-- Optional dependencies
+		config=function(opts)
+			return require("oil").setup()
+		end
 	},
 }
 
