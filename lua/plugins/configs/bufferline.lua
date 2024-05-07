@@ -4,7 +4,7 @@ local M = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
         themable = true, --| false, -- allows highlight groups to be overriden i.e. sets highlights as default
-        numbers = "both", --"none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+        numbers = "ordinal", --"none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
         close_command = "bdelete! %d",       -- can be a string | function, | false see "Mouse actions"
         right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
         left_mouse_command = "buffer %d",    -- can be a string | function, | false see "Mouse actions"
@@ -88,7 +88,7 @@ local M = {
         move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+        separator_style = "thin",--"slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
         enforce_regular_tabs = false, --| true,
         always_show_bufferline = true, -- | false,
         hover = {

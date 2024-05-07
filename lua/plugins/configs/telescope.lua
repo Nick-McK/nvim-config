@@ -3,20 +3,26 @@ local options = {
     defaults = {
         initial_mode = "insert",
         sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
+        -- layout_strategy = "horizontal",
+		layout_strategy = "vertical",
         color_devicons = true,
         layout_config = {
             horizontal = {
+				-- mirror = true,
                 prompt_position = "top",
-                preview_width = 0.65,
-                results_width = 0.8
+                -- preview_width = 0.65,
+                -- results_width = 0.8
             },
             vertical = {
                 mirror = false,
-                width = 0.5
+                width = 0.66,
+				prompt_position = "top",
+				
             },
-            width = 0.87,
-            height = 0.8,
+            -- width = 0.87,
+            -- height = 0.8,
+			width = 0.6,
+			height = 0.6,
         },
         -- Set j and k to get next and previous items in insert mode (can still use n and p)
         mappings = {

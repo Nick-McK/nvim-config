@@ -1,7 +1,11 @@
+-- not sure about doing this, most of the status line still has a opaque background to it.
+-- Could just use cyberdream or make my own custom transparent background
+local tokyonight = require("lualine.themes.tokyonight")
+tokyonight.normal.c.bg = nil
 opts = {
     options = {
         icons_enabled = true,
-        theme = 'auto',
+        theme = "cyberdream",
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
@@ -20,7 +24,7 @@ opts = {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
+        lualine_c = {'hostname', 'filename'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}

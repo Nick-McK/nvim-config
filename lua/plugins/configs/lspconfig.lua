@@ -91,7 +91,11 @@ lspconfig.gopls.setup {
 -- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
 -- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
 lspconfig.clangd.setup {
-	cmd = {"clangd", "--compile-commands-dir=."},
+	cmd = {"clangd", "--compile-commands-dir=./build/."},
+	capabilities = options.capabilities,
+}
+
+lspconfig.jdtls.setup {
 	capabilities = options.capabilities,
 }
 

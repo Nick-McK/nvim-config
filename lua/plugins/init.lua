@@ -1,3 +1,11 @@
+-- TODO: Fonts
+-- Azeret Mono
+-- BPMono indexes
+-- Courier Prime/Courier Prime Code
+-- Red Hat Mono
+-- Anka/Coder
+-- Find
+-- 
 local plugins = {
 	"nvim-lua/plenary.nvim",
 	-- {
@@ -7,6 +15,7 @@ local plugins = {
 	-- 		vim.g.startuptime_tries = 10
 	-- 	end,
 	-- },
+	-- 
 	{
 		"stevearc/dressing.nvim",
 		lazy = true,
@@ -22,6 +31,22 @@ local plugins = {
 				return vim.ui.input(...)
 			end
 		end,
+	},
+	{
+		"xero/miasma.nvim"
+	},
+	{
+		"Yazeed1s/oh-lucy.nvim"
+	},
+	{
+		"atelierbram/vim-colors_atelier-schemes",
+		priority=1000
+		},
+	{
+		"sainnhe/gruvbox-material",
+		init=function()
+			vim.cmd[[colorscheme gruvbox-material]]
+		end
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
@@ -42,9 +67,9 @@ local plugins = {
 			-- vim.cmd("colorscheme cyberdream") -- set the colorscheme
 		end,
 	},
-	{"tjdevries/colorbuddy.nvim"},
-	{"marko-cerovac/material.nvim"},
-	{"lunarvim/horizon.nvim", init=function() vim.cmd[[colorscheme horizon]] end
+	{ "tjdevries/colorbuddy.nvim" },
+	{ "marko-cerovac/material.nvim" },
+	{ "lunarvim/horizon.nvim", --init = function() vim.cmd [[colorscheme horizon]] end
 
 	},
 	{
@@ -53,7 +78,7 @@ local plugins = {
 		-- "marko-cerovac/material.nvim",
 		-- "embark-theme/vim",
 		-- name="embark",
-		lazy=false,
+		lazy = false,
 		priority = 1000,
 		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
@@ -73,16 +98,16 @@ local plugins = {
 	},
 	{
 		"folke/tokyonight.nvim",
-		opts = function ()
+		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
 		end,
-		config = function(_,opts)
+		config = function(_, opts)
 			require("tokyonight").setup(opts.tokyonight)
 		end,
 	},
 	{
 		"catppuccin/nvim",
-		lazy=false,
+		lazy = false,
 		priority = 1000,
 		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
@@ -94,7 +119,7 @@ local plugins = {
 	},
 	{
 		"rebelot/kanagawa.nvim",
-		lazy=false,
+		lazy = false,
 		priority = 1000,
 		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
@@ -106,10 +131,10 @@ local plugins = {
 	},
 	{
 		"cryptomilk/nightcity.nvim",
-		opts = function ()
+		opts = function()
 			return require("plugins.configs.colourscheme.colourscheme")
 		end,
-		config=function(_, opts)
+		config = function(_, opts)
 			require("nightcity").setup(opts.nightcity)
 		end,
 	},
@@ -124,16 +149,16 @@ local plugins = {
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
-		opts = function ()
+		opts = function()
 			return require("plugins.configs.nvim_tree")
 		end,
-		config = function (_, opts)
+		config = function(_, opts)
 			require("nvim-tree").setup(opts)
 		end
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
-		config = function ()
+		config = function()
 			require("nvim-web-devicons").setup({})
 		end
 	},
@@ -146,6 +171,10 @@ local plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make"
+			},
 			"nvim-lua/plenary.nvim",
 		},
 		opts = function()
@@ -153,7 +182,7 @@ local plugins = {
 		end,
 		config = function(_, opts)
 			require("telescope").setup(opts)
-
+			require("telescope").load_extension("fzf")
 		end,
 
 	},
@@ -172,12 +201,12 @@ local plugins = {
 	{
 		"numToStr/Comment.nvim",
 		opts = function()
-			return require ("plugins.configs.comment")
+			return require("plugins.configs.comment")
 		end,
 		config = function(_, opts)
 			require("Comment").setup({})
 		end,
-		lazy=false,
+		lazy = false,
 	},
 
 	{
@@ -189,7 +218,7 @@ local plugins = {
 			{
 				"L3MON4D3/LuaSnip",
 				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-				config = function(_,opts)
+				config = function(_, opts)
 					require("luasnip").setup(opts)
 				end
 			},
@@ -212,9 +241,9 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		opts = {
 			fast_wrap = {},
-			disable_filetype= { "TelescopePrompt", "vim" },
+			disable_filetype = { "TelescopePrompt", "vim" },
 		},
-		config = function(_,opts)
+		config = function(_, opts)
 			require("nvim-autopairs").setup(opts)
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -237,7 +266,7 @@ local plugins = {
 	{
 		"akinsho/bufferline.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = function ()
+		opts = function()
 			return require("plugins.configs.bufferline")
 		end,
 		config = function(_, opts)
@@ -248,21 +277,21 @@ local plugins = {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = function ()
+		opts = function()
 			return require "plugins.configs.todo_comments"
 		end,
-		config = function (_, opts)
+		config = function(_, opts)
 			require "todo-comments".setup(opts)
 		end
 	},
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		init = function ()
+		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
-		config = function ()
+		config = function()
 			require("which-key").setup({})
 		end
 	},
@@ -278,17 +307,17 @@ local plugins = {
 		dependencies = {
 			"mfussenegger/nvim-dap"
 		},
-		config=function ()
+		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dapui.setup()
-			dap.listeners.after.event_initialized["dapui_config"] = function ()
+			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()
 			end
-			dap.listeners.before.event_terminated["dapui_config"] = function ()
+			dap.listeners.before.event_terminated["dapui_config"] = function()
 				dapui.close()
 			end
-			dap.listeners.before.event_exited["dapui_config"] = function ()
+			dap.listeners.before.event_exited["dapui_config"] = function()
 				dapui.close()
 			end
 		end
@@ -296,12 +325,12 @@ local plugins = {
 	},
 	{
 		"mfussenegger/nvim-dap-python",
-		ft="python",
+		ft = "python",
 		dependencies = {
-			"mfussenegger/nvim-dap",-- python adapter plugin
+			"mfussenegger/nvim-dap", -- python adapter plugin
 			"rcarriga/nvim-dap-ui" -- dap ui
 		},
-		config=function (_,opts)
+		config = function(_, opts)
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
 		end
@@ -316,10 +345,10 @@ local plugins = {
 			-- path = "~/.pyvenv/",							  -- Work VM
 			-- path = "/mnt/doddie/dev/venvs/",
 			parents = 0,
-			name = {".venv", "Factorio-AI", "venv", "server-test"},
+			name = { ".venv", "Factorio-AI", "venv", "server-test" },
 			-- Your options go here
 			-- name = "venv",
-			auto_refresh = true 
+			auto_refresh = true
 		},
 		event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
 		keys = {
@@ -330,8 +359,8 @@ local plugins = {
 		}
 	},
 	{
-		dir="~/dev/neovim/plugins/minimap/",
-		config=function()
+		dir = "~/dev/neovim/plugins/minimap/",
+		config = function()
 			require("minimap")
 		end,
 	},
@@ -380,24 +409,37 @@ local plugins = {
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-			{ "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+			{ "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+			{ "S",     mode = { "n", "o", "x" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+			{ "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+			{ "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
 		},
 	},
 	{
-		"folke/neodev.nvim", opts={}
+		"folke/neodev.nvim", opts = {}
 	},
 	{
 		"echasnovski/mini.indentscope",
-		opts=function()
+		opts = function()
 			return require("plugins.configs.mini_indentscope")
 		end,
-		config=function (_,opts)
+		config = function(_, opts)
 			return require("mini.indentscope").setup(opts)
 		end,
+	},
+	{ -- Smooth scrolling animation (needs tested on a vm since mini animate was super janky)
+		"karb94/neoscroll.nvim",
+		config = function()
+			require('neoscroll').setup {}
+		end
+	},
+	{
+		"stevearc/oil.nvim",
+		opts= {},
+		config = function (opts)
+			return require("oil").setup(opts)
+		end
 	},
 }
 
