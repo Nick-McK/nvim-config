@@ -126,7 +126,7 @@ M.general = {
         --
         ------ NVIM TREE ------
 
-        ["<C-n>"] = { ":Oil<CR>", desc="Toggle Nvim Tree" },
+        ["<C-n>"] = { ":lua require('oil').toggle_float()<CR>", desc="Toggle Nvim Tree" },
         ["<leader>e"] = { ":NvimTreeFocus<CR>", desc="Focus Nvim Tree" },
         ------ NVIM TREE END ------
         --
