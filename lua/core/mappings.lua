@@ -8,6 +8,9 @@ M.general = {
 
 		["<C-u>"] = {"<C-u>zz", desc="Half page up"},
 		["<C-d>"] = {"<C-d>zz", desc="Half page down"},
+
+		-- Use shift-m for mark prefix
+		["<S-j>"] = {"'"},
 		
 		-- Toggle color column option
 		["<leader>tcc"] = {
@@ -199,7 +202,8 @@ M.telescope = {
             end, desc="Find Symbols in Buffer"},
         ["<leader>ft"] = {function ()
             require("telescope.builtin").colorscheme({enable_preview=true})
-        end, desc="Find Colour Schemes"}
+        end, desc="Find Colour Schemes"},
+		["<leader>sb"] = {"<CMD>Telescope buffers theme=ivy<CR>", desc="Search Open Buffers"}
 
 
     },
