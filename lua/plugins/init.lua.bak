@@ -346,12 +346,12 @@ local plugins = {
 			{ "<leader>vc", "<cmd>VenvSelectCached<cr>" },
 		}
 	},
-	{
-		dir="~/dev/neovim/plugins/minimap/",
-		config=function()
-			require("minimap")
-		end,
-	},
+	-- {
+	-- 	dir="~/dev/neovim/plugins/minimap/",
+	-- 	config=function()
+	-- 		require("minimap")
+	-- 	end,
+	-- },
 	-- {
 	--     dir = "~/dev/neovim/plugins/colour_picker.nvim",
 	--     opts = function (_, opts)
@@ -423,6 +423,15 @@ local plugins = {
 		config=function(opts)
 			return require("oil").setup()
 		end
+	},
+	{
+		"goolord/alpha-nvim",
+		opts = function()
+			return {}
+		end,
+		config = function(opts)
+			return require("alpha").setup(require("alpha.themes.theta").config)
+		end,
 	},
 }
 

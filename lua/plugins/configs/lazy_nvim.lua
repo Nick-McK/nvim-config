@@ -1,4 +1,4 @@
-local opts = {
+return {
   defaults = { lazy = false },
   install = {
 	missing = true,
@@ -19,4 +19,3 @@ local opts = {
 
 }
 
-return opts

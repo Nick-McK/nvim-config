@@ -1,5 +1,5 @@
 require("core")
-require("core.dashboard")
+-- require("core.dashboard")
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -16,4 +16,12 @@ vim.opt.rtp:prepend(lazypath)
 
 -- require all plugins after we have loaded lazy nvim
 -- without this here no plugins will work (obviously)
-require("plugins")
+--require("plugins")
+require("lazy").setup({
+	spec = {
+		{import = "plugins"},
+		{import = "plugins.colorschemes"},
+		{import = "plugins.ui"},
+		{import = "plugins.lsp"},
+	}
+})

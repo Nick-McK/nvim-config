@@ -32,13 +32,13 @@ opt.colorcolumn = ""
 -- Keep 8 lines as a buffer when scrolling
 opt.scrolloff = 8
 
--- disable netrw in favour of nvim tree
+-- disable netrw
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
 
 -- disable vim startup - this might not be needed, as long as we don't print anything
 -- just leave printing and info to the dashboard on startup
---opt.shortmess:append("I")
+-- opt.shortmess = "ltToOCF"
 
 
 -- Word wrapping with h and l

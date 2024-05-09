@@ -23,7 +23,13 @@ options.capabilities.textDocument.completion.completionItem = {
             "additionalTextEdits",
         },
     },
+	
 }
+
+require("neodev").setup({}) -- neovim plugin development gives api n stuff
+
+
+
 -- Setup lua lsp
 local lspconfig = require('lspconfig')
 lspconfig.lua_ls.setup {
@@ -91,7 +97,8 @@ lspconfig.gopls.setup {
 -- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
 -- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
 lspconfig.clangd.setup {
-	cmd = {"clangd", "--compile-commands-dir=."},
+	-- cmd = {"clangd", "--compile-commands-dir=."},
+	cmd = {"clangd", "--compile-commands-dir=./build/"},
 	capabilities = options.capabilities,
 }
 

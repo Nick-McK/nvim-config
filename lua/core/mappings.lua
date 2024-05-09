@@ -1,15 +1,28 @@
 local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
-    n = {
-        ["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
-        ["<C-b>"] = { "^", desc="Move to Beginning of Line" },
-        ["<C-e>"] = { "$", desc="Move to End of Line" },
+  n = {
+		["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
+		["H"] = { "^", desc="Move to Beginning of Line" },
+		["L"] = { "$", desc="Move to End of Line" },
 
 		["<C-u>"] = {"<C-u>zz", desc="Half page up"},
 		["<C-d>"] = {"<C-d>zz", desc="Half page down"},
+		
+		-- Toggle color column option
+		["<leader>tcc"] = {
+			function()
+				local value = vim.api.nvim_get_option_value("colorcolumn", {})
+				if value ~= "" then
+					vim.api.nvim_set_option_value("colorcolumn", "", {})
+				else
+					vim.api.nvim_set_option_value("colorcolumn", "110", {})
+				end
+			end,
+			desc = "Toggle Colour Column"
+		},
 
-        -- open theme switcher
+		-- open theme switcher
         ["<leader>th"] = { function()
             require("colour_picker").open_theme_window()
         end, desc="Opens Theme Switcher Menu" },
@@ -36,7 +49,7 @@ M.general = {
 	["<A-j>"] = {"<CMD>m .+1<CR>",desc="Move line up"},
 	["<A-k>"] = {"<CMD>m .-2<CR>",desc="Move line up"},
 
-		["<leader>le"] = {function()
+		["<leader>ve"] = {function()
 			vim.diagnostic.open_float({border = "rounded"})
 			end,
 			desc="Inspect Error Message"
@@ -113,7 +126,7 @@ M.general = {
         --
         ------ NVIM TREE ------
 
-        ["<C-n>"] = { ":NvimTreeToggle<CR>", desc="Toggle Nvim Tree" },
+        ["<C-n>"] = { ":Oil<CR>", desc="Toggle Nvim Tree" },
         ["<leader>e"] = { ":NvimTreeFocus<CR>", desc="Focus Nvim Tree" },
         ------ NVIM TREE END ------
         --
@@ -202,7 +215,6 @@ M.dap = {
         ["<leader>db"] = {"<cmd>DapToggleBreakpoint<CR>", desc="Toggle Breakpoint"}
     },
 }
-
 M.dap_python = {
     n={
         ["<leader>dpr"] = {function()
