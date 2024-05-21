@@ -2,7 +2,7 @@ local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
   n = {
-		["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
+		-- ["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
 		["H"] = { "^", desc="Move to Beginning of Line" },
 		["L"] = { "$", desc="Move to End of Line" },
 
@@ -203,7 +203,7 @@ M.telescope = {
         ["<leader>ft"] = {function ()
             require("telescope.builtin").colorscheme({enable_preview=true})
         end, desc="Find Colour Schemes"},
-		["<leader>sb"] = {"<CMD>Telescope buffers theme=ivy<CR>", desc="Search Open Buffers"}
+		["<leader>fB"] = {"<CMD>Telescope buffers theme=ivy<CR>", desc="Search Open Buffers"}
 
 
     },

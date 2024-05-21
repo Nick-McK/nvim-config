@@ -23,6 +23,7 @@ opt.relativenumber = true
 opt.expandtab = false
 opt.shiftwidth = 4 -- this is the actual indenting size
 opt.smartindent = true
+opt.autoindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
 
@@ -42,8 +43,17 @@ opt.scrolloff = 8
 
 
 -- Word wrapping with h and l
-opt.whichwrap:append "<>[]hl"
+-- opt.whichwrap:append "<>[]hl"
 vim.cmd [[set termguicolors]]
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("custom-term-open", {}),
+	callback = function()
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+		vim.opt_local.scrolloff = 0
+		vim.cmd('startinsert')
+	end
+})
 -- always go into insert mode on terminal enter
 vim.api.nvim_create_autocmd({"BufEnter"}, {
     callback=function() 

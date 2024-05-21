@@ -23,3 +23,11 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 		end)
 	end
 })
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+	callback = function()
+		if vim.bo.buftype == "terminal" then
+			vim.keymap.set("t", "<C-q>", "<cmd>q<cr>")
+		end
+	end
+})
