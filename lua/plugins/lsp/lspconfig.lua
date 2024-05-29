@@ -88,6 +88,10 @@ local pyright = {
     }
 }
 
+local basedpyright = {
+    capabilities = options.capabilities,
+}
+
 local clangd = {
 	-- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
 	-- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
@@ -110,6 +114,8 @@ return {
 
 		lspconfig.lua_ls.setup(lua)
 		lspconfig.pyright.setup(pyright)
+		-- require("lspconfig").basedpyright.setup({})
+		lspconfig.basedpyright.setup(basedpyright)
 		--lspconfig.pyright.setup(html)
 		lspconfig.clangd.setup(clangd)
 		lspconfig.jdtls.setup(jdtls)

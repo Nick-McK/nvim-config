@@ -1,13 +1,13 @@
 return {
 	{
-		"saadparwaiz1/cmp_luasnip",
-		
+		"saadparwaiz1/cmp_luasnip",	
 	},
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			{
 				"L3MON4D3/LuaSnip",
+				version="v2.",
 				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
 				config = function(_,opts)
 					require("luasnip").setup(opts)
