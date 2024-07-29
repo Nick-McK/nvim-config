@@ -36,11 +36,25 @@ opt.scrolloff = 8
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
 
--- disable vim startup - this might not be needed, as long as we don't print anything
--- just leave printing and info to the dashboard on startup
--- opt.shortmess = "ltToOCF"
+-- 
+
+opt.swapfile = false
+
+-- Whitespace highlight group guifg=#494d64 <- this is comment colour
+-- A darker colour is #262935
+-- middle ground? #313443
 -- ← • ♡
+vim.cmd("highligh Whitespace guifg=#262935")
 opt.listchars ={tab="❮—❯", space="•"}
+opt.list = true
+
+
+vim.api.nvim_create_autocmd("ColorScheme",{
+    pattern="*",
+    callback= function()
+        vim.api.nvim_set_hl(0, 'Whitespace', {fg = "#262935"})
+    end,
+})
 
 -- Word wrapping with h and l
 -- opt.whichwrap:append "<>[]hl"

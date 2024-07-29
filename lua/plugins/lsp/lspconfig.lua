@@ -54,70 +54,74 @@ options.capabilities.textDocument.completion.completionItem = {
     },
 }
 local lua = {
-	capabilities = options.capabilities,
-	-- on_init= function()
-	--     print("$ROOT/usr/local/lib/lua/5.1")
-	-- end,
-	-- Use the on_init thing if we only want the lsp to work in neovim?
-	-- on_init can be found on the lspconfig github or with ;h lspconfig-setup
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = {"vim", "game"}
-			},
-			workspace = {
-				library = {
-					[vim.fn.expand "$VIMRUNTIME/lua"] = true,
-					[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-					-- Allow the use of the factorio API library
-					["$HOME/dev/Factorio/API/factorio"] = true,
-					["/usr/local/lib/lua/5.1/socket"] = true,
-				}
-			}
-		}
-	}
+    capabilities = options.capabilities,
+    -- on_init= function()
+    --     print("$ROOT/usr/local/lib/lua/5.1")
+    -- end,
+    -- Use the on_init thing if we only want the lsp to work in neovim?
+    -- on_init can be found on the lspconfig github or with ;h lspconfig-setup
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {"vim", "game"}
+            },
+            workspace = {
+                library = {
+                    [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                    [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+                    -- Allow the use of the factorio API library
+                    ["$HOME/dev/Factorio/API/factorio"] = true,
+                    ["/usr/local/lib/lua/5.1/socket"] = true,
+                }
+            }
+        }
+    }
 }
 
 local pyright = {
     capabilities = options.capabilities,
     pyright = {
-		-- Specify libraries that the lsp should use for code completion
+        -- Specify libraries that the lsp should use for code completion
         library = {
             "~/dev/Factorio/"
         }
     }
 }
 
-local basedpyright = {
-    capabilities = options.capabilities,
-}
-
 local clangd = {
-	-- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
-	-- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
+    -- To get QTModules to show up in the lsp the compile_commands.json needs to be generated
+    -- The LSP then uses this and the Makefile to give completion?/hints? For more info on setup see README
 
-	-- cmd = {"clangd", "--compile-commands-dir=."},
-	cmd = {"clangd", "--compile-commands-dir=./build/"},
-	capabilities = options.capabilities,
+    -- cmd = {"clangd", "--compile-commands-dir=."},
+    cmd = {"clangd", "--compile-commands-dir=./build/"},
+    capabilities = options.capabilities,
 
 }
 
 local jdtls = {
-	capabilities = options.capabilities,
+    capabilities = options.capabilities,
+}
+
+local typescript = {
+    capabilities = options.capabilities,
+    server_capabilities = {
+        documentFormattingProvider = false
+    }
 }
 
 
 return {
-	"neovim/nvim-lspconfig",
-	config = function()
-		local lspconfig = require("lspconfig")
+    "neovim/nvim-lspconfig",
+    config = function()
+        local lspconfig = require("lspconfig")
 
-		lspconfig.lua_ls.setup(lua)
-		lspconfig.pyright.setup(pyright)
-		-- require("lspconfig").basedpyright.setup({})
-		lspconfig.basedpyright.setup(basedpyright)
-		--lspconfig.pyright.setup(html)
-		lspconfig.clangd.setup(clangd)
-		lspconfig.jdtls.setup(jdtls)
-	end
+        lspconfig.lua_ls.setup(lua)
+        lspconfig.pyright.setup(pyright)
+        -- require("lspconfig").basedpyright.setup({})
+        -- lspconfig.basedpyright.setup(basedpyright)
+        -- lspconfig.pyright.setup(html)
+        lspconfig.clangd.setup(clangd)
+        lspconfig.jdtls.setup(jdtls)
+        lspconfig.tsserver.setup{typescript}
+    end
 }
