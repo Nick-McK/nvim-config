@@ -8,7 +8,6 @@ M.load_mappings = function(m)
         for mode, maps in pairs(_) do
             for key_map, cmd in pairs(maps) do
                 -- Convert everything after the command to execute to be options of
-                -- keymap.set()
                 local options = {}
                 local execute_cmd = cmd
                 if type(cmd) == "table" then
@@ -16,14 +15,10 @@ M.load_mappings = function(m)
                     options = vim.tbl_deep_extend("force", options, cmd)
                     options[1] = nil
                 end
-                if plug == "telescope" then
-                    -- print("mode", mode)
-                    -- print("setting", key_map)
-                    -- print("cmd", vim.inspect(execute_cmd))
-                end
                 vim.keymap.set(mode, key_map, execute_cmd, options)
             end
         end
     end
 end
+
 return M

@@ -8,6 +8,7 @@ opt.cursorline = false
 local mappings = require("core.mappings")
 local utils = require("core.utils")
 require"core.globals"
+require"utils.autocmds"
 -- load mappings
 utils.load_mappings(mappings)
 
@@ -31,18 +32,7 @@ opt.cursorline = true
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
 
--- disable vim startup - this might not be needed, as long as we don't print anything
--- just leave printing and info to the dashboard on startup
---opt.shortmess:append("I")
+-- ← • ♡
+opt.listchars = { tab="❮—❯", space="•" }
 
-
--- Word wrapping with h and l
-opt.whichwrap:append "<>[]hl"
 vim.cmd [[set termguicolors]]
--- always go into insert mode on terminal enter
-vim.api.nvim_create_autocmd({"BufEnter"}, {
-    callback=function() 
-        if vim.bo.buftype == "terminal" then 
-            vim.cmd('startinsert')
-        end
-    end})
