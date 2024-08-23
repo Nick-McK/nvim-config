@@ -53,7 +53,6 @@ M.general = {
 
         -- ["<C-n>"] = { ":lua require('oil').toggle_float()<CR>", desc="Toggle Nvim Tree" },
         ["<C-n>"] = { "<cmd>Oil<cr>", desc="Toggle Nvim Tree" },
-        ["<leader>e"] = { ":NvimTreeFocus<CR>", desc="Focus Nvim Tree" },
         --
         ------ TODO COMMENTS ------
         ["td"] = { ":TodoQuickFix<CR>", desc="Open Quick Fix for ToDo" },
