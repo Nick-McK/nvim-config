@@ -51,14 +51,14 @@ return {
 				},
 			},
 			pickers = {
-				find_files = {
-					theme = "ivy"
-				}
+				-- find_files = {
+				-- 	theme = "ivy"
+				-- }
 			},
 		}
 	end,
 	config = function(_, opts)
 		require("telescope").setup(opts)
-		-- require("telescope").load_extension("fzf")
+		require("telescope").load_extension("fzf")
 	end,
 }
