@@ -65,6 +65,8 @@ return {
             pickers = {
                 -- find_files = { previewer = false, preview_width = 50 },
                 find_files = no_preview(),
+                buffers = no_preview(),
+                marks = no_preview()
             },
 		}
 	end,

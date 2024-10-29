@@ -16,6 +16,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
     end
 })
 
+-- remove whitespace
 vim.api.nvim_create_autocmd({"BufWritePre"}, {
     callback=function()
         vim.cmd[[%s/\s\+$//e]]

@@ -32,8 +32,9 @@ M.general = {
         -- Window splits
         ["<leader>hw"] = { "<CMD>split | wincmd j<CR>", desc="New Horizontal Window" },
         ["<leader>vw"] = { "<CMD>vsp | wincmd l<CR>", desc="New Vertical Window" },
-        ["<leader>ht"] = { "<CMD>split | wincmd j | term<CR>", desc="New Horizontal Terminal" },
-        ["<leader>vt"] = { "<CMD>vsp | wincmd l | term<CR>", desc="New Vertical Terminal" },
+		-- Terminals
+        ["<A-s>"] = { "<CMD>belowright 15split | wincmd j | term<CR>", desc="New Horizontal Terminal" },
+        ["<A-v>"] = { "<CMD>vsp | wincmd l | term<CR>", desc="New Vertical Terminal" },
 
         -- resize splits better
         ["<A-H>"] = { "<CMD>wincmd 2 <<CR>"},
@@ -108,9 +109,17 @@ M.telescope = {
                 require("telescope.builtin").colorscheme({enable_preview=true})
             end, desc="Find Colour Schemes"
         },
-        ["<leader><leader>"] = {"<CMD>Telescope buffers theme=ivy<CR>", desc="Search Open Buffers"},
+        ["<C-a>"] = {"<CMD>Telescope buffers theme=cursor<CR>", desc="Search Open Buffers"},
+        ["<C-m>"] = {"<CMD>Telescope marks theme=cursor<CR>", desc="Search Open Buffers"},
+
 
 	},
+}
+
+M.neotree = {
+    n = {
+        ["<C-e>"] = { "<cmd>Neotree toggle<cr>", desc="NeoTree"},
+    }
 }
 
 
