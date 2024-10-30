@@ -21,7 +21,7 @@ return {
 			},
 		}
 	end,
-	config = function(opts)
+	config = function(_,opts)
 		require("mason").setup(opts)
 	end,
 

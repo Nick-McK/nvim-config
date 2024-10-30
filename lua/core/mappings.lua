@@ -1,11 +1,11 @@
+local functions = require("lua.core.functions")
+
 local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
     n = {
         ["<leader>sl"] = {"<cmd>set list<cr>", desc="Sets char list"},
         ["<leader>sln"] = {"<cmd>set nolist<cr>", desc="Unsets char list"},
-        -- remove trailing whitespace
-        -- ["<C-q>"] = { ":qa!<CR>", desc="Force quite all no saving" },
         ["<C-u>"] = {"<C-u>zz", desc="Half page up"},
         ["<C-d>"] = {"<C-d>zz", desc="Half page down"},
 
@@ -18,7 +18,7 @@ M.general = {
                 if value ~= "" then
                     vim.api.nvim_set_option_value("colorcolumn", "", {})
                 else
-                    vim.api.nvim_set_option_value("colorcolumn", "110", {})
+                    vim.api.nvim_set_option_value("colorcolumn", "100", {})
                 end
             end,
             desc = "Toggle Colour Column"
@@ -26,13 +26,13 @@ M.general = {
 
         -- Switch windows
         ["<C-j>"] = { "<C-w>j", desc="Move Down a Window" },
-        ["<C-k>"] = { "<C-w>k", desc="Move Up a Window" }, -- currently doesn't work as there is an overlapping keybind
+        ["<C-k>"] = { "<C-w>k", desc="Move Up a Window" },
         ["<C-h>"] = { "<C-w>h", desc="Move Left a Window" },
         ["<C-l>"] = { "<C-w>l", desc="Move Right a Window" },
         -- Window splits
         ["<leader>hw"] = { "<CMD>split | wincmd j<CR>", desc="New Horizontal Window" },
         ["<leader>vw"] = { "<CMD>vsp | wincmd l<CR>", desc="New Vertical Window" },
-		-- Terminals
+        -- Terminals
         ["<A-s>"] = { "<CMD>belowright 15split | wincmd j | term<CR>", desc="New Horizontal Terminal" },
         ["<A-v>"] = { "<CMD>vsp | wincmd l | term<CR>", desc="New Vertical Terminal" },
 
@@ -57,6 +57,10 @@ M.general = {
         --
         ------ TODO COMMENTS ------
         ["td"] = { ":TodoQuickFix<CR>", desc="Open Quick Fix for ToDo" },
+
+        ["<C-t>"] = {function()
+            functions.toggle_custom_color_col()
+        end, desc="testing"}
     },
 
     -- INSERT MODE
