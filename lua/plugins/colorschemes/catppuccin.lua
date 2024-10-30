@@ -9,7 +9,7 @@ return {
 				light = "latte",
 				dark = "mocha",
 			},
-			transparent_background = true, -- disables setting the background color.
+			transparent_background = false, -- disables setting the background color.
 			show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
 			term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)colouo
 			dim_inactive = {
@@ -50,7 +50,7 @@ return {
 	config = function(_, opts)
 		-- setup must be called before initialising the colour scheme
 		require("catppuccin").setup(opts)
-		vim.cmd[[colorscheme catppuccin-macchiato]]
+		-- vim.cmd[[colorscheme catppuccin-macchiato]]
 
 	end,
 

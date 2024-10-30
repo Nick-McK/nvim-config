@@ -12,7 +12,7 @@ return {
             transparent = true,
          }
 
-         vim.cmd.colorscheme 'fluoromachine'
+         -- vim.cmd.colorscheme 'fluoromachine'
         end
     }
 }
