@@ -1,5 +1,6 @@
 local M = {}
 
+-- TODO:This can be improved a lot for when its redrawn in the autocmd thing
 M.toggle_custom_color_col = function()
     local ns_id = vim.api.nvim_create_namespace("colorcolumn_marker")
     -- Define the virtual text to be displayed
@@ -12,10 +13,11 @@ M.toggle_custom_color_col = function()
     -- Loop through each line in the buffer
     for i = 0, vim.api.nvim_buf_line_count(bufnr) - 1 do
         local line = vim.api.nvim_buf_get_lines(bufnr, i, i + 1, false)[1] or ""
+        local display_line_length = vim.fn.strdisplaywidth(line)
         local line_length = #line
 
         -- Calculate the amount of padding required to reach the target column
-        local padding = math.max(target_col - line_length, 0)
+        local padding = math.max(target_col - display_line_length, 0)
         local padding_spaces = string.rep(" ", padding - 1)  -- Subtract 1 to leave space for the "|"
 
         -- Set virtual text with padding and the "|" marker
@@ -27,9 +29,8 @@ M.toggle_custom_color_col = function()
                 priority = 0
             })
         else
-            local char_at_80 = line:sub(target_col, target_col)
-            print("char at 80 '" .. char_at_80 .. "'")
-            if char_at_80 == " " then
+            local char_at_target_col = line:sub(target_col, target_col)
+            if char_at_target_col == " " then
                 -- priority is set to a low value to always draw it first
                 -- that way everything else is draw AFTER it
                 -- vim.api.nvim_buf_set_extmark(bufnr, ns_id, i, target_col - 1, {

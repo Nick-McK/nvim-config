@@ -1,3 +1,4 @@
+local functions = require("core.functions")
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("custom-term-open", {}),
 	callback = function()
@@ -13,6 +14,17 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
         if vim.bo.buftype == "terminal" then
             vim.cmd('startinsert')
         end
+    end
+})
+
+vim.api.nvim_create_autocmd({"TextChangedI"}, {
+    callback=function()
+        functions.toggle_custom_color_col()
+    end
+})
+vim.api.nvim_create_autocmd({"TextChanged"}, {
+    callback=function()
+        functions.toggle_custom_color_col()
     end
 })
 
