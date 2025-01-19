@@ -1,8 +1,9 @@
 return {
 	"echasnovski/mini.indentscope",
 	config = function()
-		return require("mini.indentscope").setup({
+		 require("mini.indentscope").setup({
             symbol = "│",
-        })
+	        -- options={try_as_border=true},
+         })
 	end,
 }

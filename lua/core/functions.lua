@@ -4,6 +4,7 @@ M.state = {
     cc = false,
 }
 
+-- TODO:This can be improved a lot for when its redrawn in the autocmd thing
 M.toggle_custom_color_col = function()
     M.state.cc = true
     -- TODO: This should be called when we go into insert mode? So we don't get the weird UI bugs
@@ -38,8 +39,8 @@ M.toggle_custom_color_col = function()
                 priority = 0
             })
         else
-            local char_at_80 = line:sub(target_col, target_col)
-            if char_at_80 == " " then
+            local char_at_target_col = line:sub(target_col, target_col)
+            if char_at_target_col == " " then
                 -- priority is set to a low value to always draw it first
                 -- that way everything else is draw AFTER it
                 vim.api.nvim_buf_set_extmark(0, ns_id, i, target_col, {
