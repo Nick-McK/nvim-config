@@ -5,12 +5,8 @@ local g = vim.g
 g.mapleader = " "
 opt.cursorline = false
 
-local mappings = require("core.mappings")
-local utils = require("core.utils")
 require"core.globals"
 require"utils.autocmds"
--- load mappings
-utils.load_mappings(mappings)
 
 -- line numbering
 opt.number = true
@@ -36,5 +32,6 @@ opt.cursorline = true
 
 -- ← • ♡
 opt.listchars = { tab="❮—❯", space="•" }
+opt.fillchars = { eob=" " }
 
 vim.cmd [[set termguicolors]]

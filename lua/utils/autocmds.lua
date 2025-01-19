@@ -23,3 +23,20 @@ vim.api.nvim_create_autocmd({"BufWritePre"}, {
     end
 })
 
+-- highlight text that was yanked
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+    callback = function()
+        vim.highlight.on_yank({higroup="Visual", timeout=300})
+    end
+})
+
+-- Open help in vertical split on the right instead of in horizontal split above
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+    pattern="*.txt",
+    callback = function()
+        if vim.bo.filetype == "help" then
+            vim.cmd.wincmd("L")
+        end
+    end
+})
+

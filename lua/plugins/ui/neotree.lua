@@ -9,7 +9,15 @@ return {
     },
     config = function()
         require("neo-tree").setup({
-            close_if_last_window = true
+            close_if_last_window = true,
+            -- SHows sources at the top of the tree can be navigated with < and >
+            source_selector = {
+                winbar = true,
+                statusline = false
+            },
+            buffers = {
+
+            }
         })
     end
 

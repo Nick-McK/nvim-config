@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
         vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
         vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
         vim.keymap.set('n', '<space>wl', function()
@@ -35,7 +36,8 @@ options.on_attach = function(client, buf)
     client.server_capabilities.documentRangeFormattingProvider = false
 end
 
-options.capabilities = vim.lsp.protocol.make_client_capabilities()
+-- options.capabilities = vim.lsp.protocol.make_client_capabilities()
+options.capabilities = require("blink.cmp").get_lsp_capabilities()
 -- options.capabilities = require("cmp_nvim_lsp").default_capabilities()
 options.capabilities.textDocument.completion.completionItem = {
     documentationFormat = { "markdown", "plaintext" },

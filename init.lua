@@ -1,27 +1,36 @@
 require("core")
 -- require("core.dashboard")
 
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
+if not vim.g.lazy_initialized then
+  vim.g.lazy_initialized = true
 
--- require all plugins after we have loaded lazy nvim
--- without this here no plugins will work (obviously)
---require("plugins")
-require("lazy").setup({
-	spec = {
-		{import = "plugins"},
-		{import = "plugins.colorschemes"},
-		{import = "plugins.ui"},
-		{import = "plugins.lsp"},
-	}
-})
+  local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable",
+      lazypath,
+    })
+  end
+  vim.opt.rtp:prepend(lazypath)
+  -- require all plugins after we have loaded lazy nvim
+  -- without this here no plugins will work (obviously)
+  --require("plugins")
+  require("lazy").setup({
+    spec = {
+      {import = "plugins"},
+      {import = "plugins.colorschemes"},
+      {import = "plugins.ui"},
+      {import = "plugins.lsp"},
+    }
+  })
+end
+
+
+local mappings = require("core.mappings")
+local utils = require("core.utils")
+-- load mappings
+utils.load_mappings(mappings)

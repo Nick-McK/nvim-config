@@ -34,7 +34,8 @@ return {
 				types = {},
 				operators = {},
 			},
-			color_overrides = {},
+			color_overrides = {
+            },
 			custom_highlights = {},
 			integrations = {
 				cmp = true,
@@ -50,7 +51,7 @@ return {
 	config = function(_, opts)
 		-- setup must be called before initialising the colour scheme
 		require("catppuccin").setup(opts)
-		vim.cmd[[colorscheme catppuccin-macchiato]]
+		-- vim.cmd[[colorscheme catppuccin-macchiato]]
 
 	end,
 

@@ -1,10 +1,16 @@
 return {
-		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = function()
-			return require "plugins.configs.todo_comments"
-		end,
-		config = function(_, opts)
-			require "todo-comments".setup(opts)
-		end
-	}
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+        keywords = {
+            NMNM = {
+                icon = " ",
+                color = "error",
+                alt = {"NICK", "Nick", "NMNMNM"}
+            }
+        },
+    },
+    config = function(_, opts)
+        require "todo-comments".setup(opts)
+    end
+}

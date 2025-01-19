@@ -11,6 +11,58 @@ no_preview = function()
         prompt_title = false,
     })
 end
+local custom_ivy_with_top_preview = function(picker_type)
+    local picker = require('telescope.themes').get_ivy {
+        prompt_title = "🔍 Ivy Search with Top Preview",
+        results_title = "Search Results 📂",
+        preview_title = "Preview 📜",
+        layout_config = {
+            height = 0.3, -- Use 90% of the editor height
+            -- width = 0.3, -- Use 90% of the editor width
+            prompt_position = "bottom", -- Keep the prompt at the bottom
+            preview_cutoff = 1, -- Always show the previewer
+            -- preview_height = 0.4, -- Take up 40% of the layout for the previewer
+        },
+        sorting_strategy = "ascending", -- Results appear top-to-bottom
+        border = false, -- Show borders
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- Stylish borders
+        -- borderchars = { "", "", "", "", "", "", "", "" }, -- Stylish borders
+        winblend = 10, -- Transparency for a modern feel
+        previewer = false, -- Enable the previewer
+        color_devicons = true, -- Colored file icons
+    }
+
+    -- can add custom mappings depending on the picker type this way. Not adding
+    -- right now since nothing custom needs done (realised keymap already exists
+    -- for deleting buffers)
+    -- if picker_type == "buffers" then
+    --   picker.mappings = {
+    --
+    --   }
+    -- end
+
+    return picker
+end
+
+
+local custom_live_grep = function()
+    return require('telescope.themes').get_dropdown {
+        prompt_title = "🔍 Search in Files",
+        previewer = true, -- Disable preview to make it compact
+        results_title = "Search Results 📂",
+        layout_config = {
+            width = 0.7, -- 70% of the editor width
+            height = 0.5, -- 50% of the editor height
+            prompt_position = "top", -- Keep the prompt at the top
+        },
+        sorting_strategy = "ascending", -- Results appear top-to-bottom
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- Stylish borders
+        winblend = 15, -- Slight transparency for a modern look
+        border = true, -- Show borders around the picker
+    }
+end
+
+-- TODO: Add git commands - can use the previewer to look at diffs which would save time
 
 return {
 	"nvim-telescope/telescope.nvim",
@@ -41,18 +93,20 @@ return {
 					width = 0.87,
 					height = 0.4,
 				},
+                -- previewer = true,
 				mappings = {
 					i = {
 						["<C-j>"] = require("telescope.actions").move_selection_next,
 						["<C-k>"] = require("telescope.actions").move_selection_previous,
 					},
 				},
-				path_display = { "truncate" },
+				-- path_display = { "truncate" },
+				path_display = { "filename_first" },
 				extensions_list = { "terms", "fzf" },
 				extensions = {
 					fzf = {
 						fuzzy = true,
-						override_generic_sorter = false,
+						override_generic_sorter = true,
 						override_file_sorter = false,
 						case_mode = "smart_case",
 					},
@@ -64,9 +118,10 @@ return {
 			},
             pickers = {
                 -- find_files = { previewer = false, preview_width = 50 },
-                find_files = no_preview(),
-                buffers = no_preview(),
-                marks = no_preview()
+                find_files = custom_ivy_with_top_preview("find_files"),
+                buffers = custom_ivy_with_top_preview("buffers"),
+                marks = no_preview(),
+               live_grep = custom_ivy_with_top_preview("live_grep"),
             },
 		}
 	end,
