@@ -100,8 +100,8 @@ return {
 						["<C-k>"] = require("telescope.actions").move_selection_previous,
 					},
 				},
-				-- path_display = { "truncate" },
-				path_display = { "filename_first" },
+				path_display = { "truncate" },
+				-- path_display = { "filename_first" },
 				extensions_list = { "terms", "fzf" },
 				extensions = {
 					fzf = {

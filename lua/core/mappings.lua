@@ -4,7 +4,7 @@ local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
     n = {
-        ["<leader>x"] = {"<cmd>source %<cr>", desc="source current file"},
+        ["<A-R>"] = {"<cmd>source %<cr>", desc="source current file"},
 
         ["<leader>sl"] = {"<cmd>set list<cr>", desc="Sets char list"},
         ["<leader>sln"] = {"<cmd>set nolist<cr>", desc="Unsets char list"},
@@ -12,8 +12,6 @@ M.general = {
         ["<C-u>"] = {"<C-u>zz", desc="Half page up"},
         ["<C-d>"] = {"<C-d>zz", desc="Half page down"},
 
-        -- Use shift-j for mark prefix (lower case is for same file, upper case across files)
-        -- ["<S-j>"] = {"'"},
         -- Toggle color column option
         ["<A-t>"] = {
             function()
@@ -64,8 +62,8 @@ M.general = {
             end, desc="Inspect Error Message"
         },
 
-        -- ["<C-n>"] = { ":lua require('oil').toggle_float()<CR>", desc="Toggle Nvim Tree" },
-        ["<C-n>"] = { "<cmd>Oil<cr>", desc="Toggle Nvim Tree" },
+        ["<C-n>"] = { ":lua require('oil').toggle_float()<CR>", desc="Toggle Nvim Tree" },
+        -- ["<C-n>"] = { "<cmd>Oil<cr>", desc="Toggle Nvim Tree" },
         --
         ------ TODO COMMENTS ------
         ["td"] = { ":TodoQuickFix<CR>", desc="Open Quick Fix for ToDo" },
@@ -119,7 +117,7 @@ M.telescope = {
             return require("telescope.builtin").find_files(no_preview_drop_down)
         end, desc="Find File" },
 
-        ["<leader>sf"] = { ":Telescope lsp_document_symbols symbols=function<CR>", desc="Search Functions in CurBuf" },
+        ["<leader>sf"] = { ":Telescope lsp_document_symbols symbols=function,method<CR>", desc="Search Functions in CurBuf" },
         ["<leader>fw"] = {function ()
             require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
         end, desc="Find Word (root)"},
@@ -143,7 +141,7 @@ M.telescope = {
                 require("telescope.builtin").colorscheme({enable_preview=true})
             end, desc="Find Colour Schemes"
         },
-        ["<C-e>"] = {"<CMD>Telescope buffers<CR>", desc="Search Open Buffers"},
+        -- ["<C-e>"] = {"<CMD>Telescope buffers<CR>", desc="Search Open Buffers"},
 
         ["<A-m>"] = {"<CMD>Telescope marks<CR>", desc="Search Open Buffers"},
         ["<leader>fp"] = {function() require("telescope.builtin").find_files({
@@ -175,12 +173,18 @@ M.harpoon = {
     n = {
         ["<A-h>"] = {function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc="[H]arpoon [L]ist"},
         ["<leader>a"] = {function() harpoon:list():add() end, desc="[H]arpoon [A]dd"},
-        ["<A-1>"] = {function() harpoon:list():select(1) end, desc="Harpoon Item 1"},
-        ["<A-2>"] = {function() harpoon:list():select(2) end , desc="Harpoon Item 2"},
-        ["<A-3>"] = {function() harpoon:list():select(3) end , desc="Harpoon Item 2"},
-        ["<A-4>"] = {function() harpoon:list():select(4) end , desc="Harpoon Item 2"},
-        ["<A-5>"] = {function() harpoon:list():select(5) end , desc="Harpoon Item 2"},
+        -- ["<A-1>"] = {function() harpoon:list():select(1) end, desc="Harpoon Item 1"},
+        -- ["<A-2>"] = {function() harpoon:list():select(2) end , desc="Harpoon Item 2"},
+        -- ["<A-3>"] = {function() harpoon:list():select(3) end , desc="Harpoon Item 2"},
+        -- ["<A-4>"] = {function() harpoon:list():select(4) end , desc="Harpoon Item 2"},
+        -- ["<A-5>"] = {function() harpoon:list():select(5) end , desc="Harpoon Item 2"},
     },
+}
+
+M.BufBuddy = {
+  n = {
+    -- [","] = {function() require("BufBuddy").start() end, desc="Open buffer list"}
+  }
 }
 
 return M

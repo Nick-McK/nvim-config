@@ -1,6 +1,6 @@
 return {
 	"ilof2/posterpole.nvim",
-	priority=1000,
+	priority=999,
 	config = function ()
 		require("posterpole").setup({
 			-- config here
@@ -14,6 +14,7 @@ return {
         --
         vim.api.nvim_create_autocmd("ColorScheme",{
             callback = function()
+              -- print("color" .. vim.g.colors_name)
             end,
         })
 
