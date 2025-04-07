@@ -3,6 +3,7 @@ return {
     opts = function()
         return {
             columns = {
+                "mtime",
                 "icon",
                 "size",
                 "type",
@@ -10,7 +11,6 @@ return {
             view_options = {
                 show_hidden = true,
             }
-
         }
     end,
 	config = function(_, opts)

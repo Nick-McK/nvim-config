@@ -1,4 +1,4 @@
-no_preview = function()
+function no_preview()
     return require("telescope.themes").get_dropdown({
         borderchars = {
             { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
@@ -7,6 +7,7 @@ no_preview = function()
             preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
         },
         width = 0.8,
+
         previewer = false,
         prompt_title = false,
     })
@@ -44,7 +45,6 @@ local custom_ivy_with_top_preview = function(picker_type)
     return picker
 end
 
-
 local custom_live_grep = function()
     return require('telescope.themes').get_dropdown {
         prompt_title = "🔍 Search in Files",
@@ -78,8 +78,9 @@ return {
 			defaults = {
 				initial_mode = "insert",
 				sorting_strategy = "ascending",
-				layout_strategy = "bottom_pane",
+				layout_strategy = "horizontal", -- bottom_pane
 				color_devicons = true,
+        preview = false,
 				layout_config = {
 					horizontal = {
 						prompt_position = "top",
@@ -115,15 +116,15 @@ return {
 					"build/",
 					"node_modules", -- ignore files inside node_modules
 				},
-			},
-            pickers = {
-                -- find_files = { previewer = false, preview_width = 50 },
-                find_files = custom_ivy_with_top_preview("find_files"),
-                buffers = custom_ivy_with_top_preview("buffers"),
-                marks = no_preview(),
-               live_grep = custom_ivy_with_top_preview("live_grep"),
-            },
-		}
+      },
+      pickers = {
+        -- find_files = { previewer = false, preview_width = 50 },
+        -- find_files = require("telescope.builtin").find_files(dynamic_height()),
+        buffers = custom_ivy_with_top_preview("buffers"),
+        marks = no_preview(),
+        live_grep = custom_ivy_with_top_preview("live_grep"),
+      },
+    }
 	end,
 	config = function(_, opts)
 		require("telescope").setup(opts)

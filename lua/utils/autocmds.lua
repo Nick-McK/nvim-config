@@ -8,23 +8,28 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.cmd('startinsert')
 	end
 })
+
 -- always go into insert mode on terminal enter
 vim.api.nvim_create_autocmd({"BufEnter"}, {
     callback=function()
         if vim.bo.buftype == "terminal" then
             vim.cmd('startinsert')
+            local ns_id = vim.api.nvim_create_namespace("colorcolumn_marker")
+
+            vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+
         end
     end
 })
 
-vim.api.nvim_create_autocmd({"TextChangedI"}, {
+vim.api.nvim_create_autocmd({"WinScrolled"}, {
     callback=function()
+      if vim.bo.buftype == "terminal" and not functions.state.cc then
+        local ns_id = vim.api.nvim_create_namespace("colorcolumn_marker")
+        vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+      else
         functions.toggle_custom_color_col()
-    end
-})
-vim.api.nvim_create_autocmd({"TextChanged"}, {
-    callback=function()
-        functions.toggle_custom_color_col()
+      end
     end
 })
 

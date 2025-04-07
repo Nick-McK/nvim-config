@@ -126,14 +126,16 @@ local ocamllsp = {
 }
 
 
+
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
 		local lspconfig = require("lspconfig")
 
-        lspconfig.ocamllsp.setup(ocamllsp)
+    lspconfig.ocamllsp.setup(ocamllsp)
 		lspconfig.lua_ls.setup(lua)
 		lspconfig.pyright.setup(pyright)
+    lspconfig.bashls.setup({})
 		-- require("lspconfig").basedpyright.setup({})
 		lspconfig.basedpyright.setup(basedpyright)
 		--lspconfig.pyright.setup(html)

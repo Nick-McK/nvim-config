@@ -4,6 +4,14 @@ local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
     n = {
+      ["<leader>blackout"] = {function()
+        vim.api.nvim_set_hl(0, "Normal", {bg="#111111"})
+        vim.api.nvim_set_hl(0, "NormalNC", {bg="#111111"})
+        vim.api.nvim_set_hl(0, "EndOfBuffer", {bg="#111111"})
+      end, desc="Blackout background"},
+      -- BufBuddy testing
+        -- ["j"] = {"<C-e>", desc="move line down"},
+        -- ["k"] = {"<C-y>", desc="move line up"},
         ["<A-R>"] = {"<cmd>source %<cr>", desc="source current file"},
 
         ["<leader>sl"] = {"<cmd>set list<cr>", desc="Sets char list"},
@@ -111,10 +119,14 @@ M.general = {
 
 M.telescope = {
     n = {
-        -- ["<leader>ff"] = { ":Telescope find_files<CR>", desc="Find File" },
-        ["<leader>ff"] = { function()
+        -- ["<leader>ff"] = { "<cmd>Telescope find_files<CR>", desc="Find File" },
+        ["<leader>fd"] = { function()
             local no_preview_drop_down = require("plugins.ui.telescope").no_preview
             return require("telescope.builtin").find_files(no_preview_drop_down)
+        end, desc="Find File" },
+        ["<leader>ff"] = { function()
+          local dynamic_height = require("utils.telescope-utils").dynamic_height()
+          return require("telescope.builtin").find_files(dynamic_height)
         end, desc="Find File" },
 
         ["<leader>sf"] = { ":Telescope lsp_document_symbols symbols=function,method<CR>", desc="Search Functions in CurBuf" },
@@ -122,9 +134,9 @@ M.telescope = {
             require("telescope.builtin").grep_string({word_match="-w", cwd=vim.loop.cwd()})
         end, desc="Find Word (root)"},
         ["<leader>fM"] = {":Telescope man_pages<CR>", desc="Find Man Page"},
-        ["<leader>fH"] = {"<cmd>Telescope help_tags<cr>", desc="Find Help Page"},
+        ["<leader>fh"] = {"<cmd>Telescope help_tags<cr>", desc="Find Help Page"},
         ["<leader>fb"] = {":Telescope current_buffer_fuzzy_find<CR>", desc="Search Buffer"},
-        ["<leader>fd"] = {":Telescope diagnostics bufnr=0<CR>", desc="Current Buffer Diagnostics"},
+        -- ["<leader>fd"] = {":Telescope diagnostics bufnr=0<CR>", desc="Current Buffer Diagnostics"},
         ["<leader>fD"] = {":Telescope diagnostics<CR>", desc="Workspace Diagnostics"},
         ["<leader>fg"] = {":Telescope live_grep<CR>", desc="Grep (root)"},
         ["<leader>;"] = {":Telescope command_history<CR>", desc="Grep (root)"},
@@ -167,6 +179,15 @@ M.lspconfig = {
     },
 }
 
+M.gitsigns = {
+  n = {
+    ["<leader>tnh"] = {"<cmd>Gitsigns toggle_numhl<cr>", desc="Toggle Number Highlight"},
+    ["<leader>gsh"] = {"<cmd>Gitsigns stage_hunk<cr>", desc="Stage Hunk"},
+    ["[h"] = {"<cmd>Gitsigns prev_hunk<cr>", desc="Previous Hunk"},
+    ["]h"] = {"<cmd>Gitsigns next_hunk<cr>", desc="Previous Hunk"},
+  }
+}
+
 -- This only works because now loading all mappings after lazy has loaded all plugins
 local harpoon = require("harpoon")
 M.harpoon = {
@@ -184,7 +205,19 @@ M.harpoon = {
 M.BufBuddy = {
   n = {
     -- [","] = {function() require("BufBuddy").start() end, desc="Open buffer list"}
+    ["]b"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
+    ["<Tab>"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
+    ["[b"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+    ["<S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+    ["<C-S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
   }
 }
+
+-- M.aerial = {
+--   n = {
+--     ["<M-d>"] = {"<cmd>AerialNext<cr>", desc="Aerial Cycle Next"},
+--     ["<M-a>"] = {"<cmd>AerialPrev<cr>", desc="Cycle Aerial Back"}
+--   }
+-- }
 
 return M

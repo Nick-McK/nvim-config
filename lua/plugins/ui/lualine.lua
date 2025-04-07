@@ -51,20 +51,26 @@ end
 local function add_buf_buddy_section()
   local buf_buddy = require("BufBuddy")
   local buffers = {}
-  for _, buf in ipairs(buf_buddy:list()) do
-    if vim.api.nvim_buf_is_loaded(buf.bufnr) then
+  -- print("bufbuddy list" .. vim.inspect(buf_buddy.list))
+  local truncated = buf_buddy.get_truncated_paths(buf_buddy:get_list())
+  for i, buf in ipairs(buf_buddy:get_list()) do
+    if i > 5 then
+      break
+    end
+    if vim.api.nvim_buf_is_loaded(buf.id) then
       local buffer_name = vim.fn.fnamemodify(buf.name, ":t")
-      if buf.name:find("/home/", 1, true) ~= nil or buf.name:sub(1,1) == "~" then
-        buffer_name = buf_buddy.truncate_path(buf.name)
-      end
-      local status_line_str = buffer_name
-      if vim.api.nvim_get_current_buf() == buf.bufnr then
-        local hl = "%#BufBuddyStatusLineActive#"
-        local sep_hl = "%#BufBuddyStatusLineActiveSeparator#"
-
+      local status_line_str = truncated[buf.name]
+      if vim.api.nvim_get_current_buf() == buf.id then
         status_line_str = string.format(
-        "%s%s%s%s%s",
-        sep_hl, hl, buffer_name, sep_hl,"%#Normal#")
+          "*%s*",
+          truncated[buf.name]
+        )
+
+        -- local hl = "%#BufBuddyStatusLineActive#"
+        -- local sep_hl = "%#BufBuddyStatusLineActiveSeparator#"
+        -- status_line_str = string.format(
+        -- "%s%s%s%s%s",
+        -- sep_hl, hl, truncated[buf.name], sep_hl,"%#Normal#")
       end
 
       table.insert(buffers, status_line_str)
@@ -72,6 +78,7 @@ local function add_buf_buddy_section()
   end
   return string.format("%s", table.concat(buffers, " | "))
 end
+
 return {
 	"nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -85,12 +92,14 @@ return {
       -- Most of these are the defaults - just listed for clarity
 			sections = {
         lualine_a = {{ 'mode', fmt = function(mode) return get_mode(mode) end}},
-        lualine_b = {"branch", "diagnostics"},
+        -- lualine_b = {"branch", "diagnostics"},
+        lualine_b = { function() return add_buf_buddy_section() end},
+				lualine_c = {  },
 				-- lualine_c = { {"filename", path = 1}},
-        lualine_c = { function() return add_buf_buddy_section() end },
-        lualine_x = {"fileformat", "filetype"},
+        -- lualine_c = { function() return add_buf_buddy_section() end },
+        lualine_x = {"fileformat", "diagnostics"},
         -- lualine_x = {},
-        lualine_y = {}, -- default "pogress"
+        lualine_y = {"progress", "branch"}, -- default "pogress"
         lualine_z = {"location"},
 			}
 		})
