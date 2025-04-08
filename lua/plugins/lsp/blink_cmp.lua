@@ -12,8 +12,8 @@ return {
     -- See the full "keymap" documentation for information on defining your own keymap.
     keymap = {
         preset = 'default',
-        ['<C-j>'] = {'select_next'},
-        ['<C-k>'] = {'select_prev'},
+        ['<C-j>'] = {'select_next', "fallback"},
+        ['<C-k>'] = {'select_prev', "fallback"},
         ['<C-space>'] = {'select_and_accept'}
     },
 
@@ -47,5 +47,9 @@ return {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
+
+  -- config = function(_, opts)
+  --   require("blink.cmp").setup(opts)
+  -- end
 }
