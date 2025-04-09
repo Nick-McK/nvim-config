@@ -31,6 +31,7 @@ end
 
 
 local mappings = require("core.mappings")
+local file_mappings = require("core.file_mappings")
 local utils = require("core.utils")
 -- load mappings
 utils.load_mappings(mappings)

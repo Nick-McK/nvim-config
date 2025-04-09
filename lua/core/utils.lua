@@ -21,4 +21,15 @@ M.load_mappings = function(m)
     end
 end
 
+M.is_window_open = function(ft)
+  local is_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == ft then
+      is_open = true
+    end
+  end
+  return is_open
+end
+
 return M

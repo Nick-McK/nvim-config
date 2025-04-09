@@ -61,8 +61,8 @@ M.general = {
         -- Old - keeping for the cmd
         -- ["<A-k>"] = {"<CMD>m .-2<CR>",desc="Move line up"},
         -- ["<A-j>"] = {"<CMD>m .+1<CR>",desc="Move line up"},
-        ["<A-j>"] = {"<cmd>cnext<cr>", desc="Next Quickfix"},
-        ["<A-k>"] = {"<cmd>cprev<cr>", desc="Previous Quickfix"},
+        -- ["<A-j>"] = {"<cmd>cnext<cr>", desc="Next Quickfix"},
+        -- ["<A-k>"] = {"<cmd>cprev<cr>", desc="Previous Quickfix"},
 
         ["<leader>ve"] = {
             function()
@@ -206,10 +206,12 @@ M.BufBuddy = {
   n = {
     -- [","] = {function() require("BufBuddy").start() end, desc="Open buffer list"}
     ["]b"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
-    ["<Tab>"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
+    -- ["<Tab>"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
     ["[b"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
-    ["<S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
-    ["<C-S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+    -- ["<S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+    ["<A-j>"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
+    ["<A-k>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+    -- ["<C-S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
   }
 }
 
