@@ -384,7 +384,7 @@ return {
 	config = function(_, opts)
 		-- setup must be called before initialising the colour scheme
 		require("catppuccin").setup(opts)
-		vim.cmd[[colorscheme catppuccin-mocha]]
+		-- vim.cmd[[colorscheme catppuccin-mocha]]
 
 	end,
 
