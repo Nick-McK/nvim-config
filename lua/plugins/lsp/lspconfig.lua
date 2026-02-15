@@ -1,3 +1,17 @@
+local function get_workspace_libs()
+  local cwd = vim.fn.getcwd()
+  local dirs = {}
+  for _, path in ipairs(vim.fn.glob(cwd .. "/**/*.lua", false, true)) do
+    local dir = vim.fn.fnamemodify(path, ":h")
+    dirs[dir] = true
+  end
+  local lib = {}
+  for dir, _ in pairs(dirs) do
+    table.insert(lib, dir)
+  end
+  return lib
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -25,7 +39,7 @@ return {
           }
         },
         clangd = {
-          cmd = {"clangd", "--compile_commands-dir=."}
+          cmd = {"clangd", "--compile-commands-dir=build/"}
         },
         lua_ls = {
           settings = {
@@ -34,13 +48,21 @@ return {
                 globals = {"vim", "game"}
               },
               workspace = {
-                library = {
-                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                  [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                  -- Allow the use of the factorio API library
-                  ["$HOME/dev/Factorio/API/factorio"] = true,
-                  ["/usr/local/lib/lua/5.1/socket"] = true,
-                }
+                library = vim.tbl_extend(
+                  "force",
+                  get_workspace_libs(),
+                  {"/usr/local/lib/lua/5.1/socket"},
+                  {vim.fn.expand("$HOME/dev/Factorio/API/factorio")}
+                )
+                -- library = {
+                --   [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                --   [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+                --   -- Allow the use of the factorio API library
+                --   ["$HOME/dev/Factorio/API/factorio"] = true,
+                --   ["/usr/local/lib/lua/5.1/socket"] = true,
+                --   [vim.fn.expand "/home/nick/dev/plugins/BufBuddy"] = true,
+                --   [vim.fn.expand "/home/nick/dev/plugins/BufBuddy/types/"] = true,
+                -- }
               }
             }
           }

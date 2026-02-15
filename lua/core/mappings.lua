@@ -1,4 +1,5 @@
 local functions = require("core.functions")
+local utils = require("core.utils")
 
 local M = {}
 -- TODO: Sort all these out and format them in some way
@@ -61,8 +62,24 @@ M.general = {
         -- Old - keeping for the cmd
         -- ["<A-k>"] = {"<CMD>m .-2<CR>",desc="Move line up"},
         -- ["<A-j>"] = {"<CMD>m .+1<CR>",desc="Move line up"},
-        ["<A-j>"] = {"<cmd>cnext<cr>", desc="Next Quickfix"},
-        ["<A-k>"] = {"<cmd>cprev<cr>", desc="Previous Quickfix"},
+        -- ["<A-j>"] = {"<cmd>cnext<cr>", desc="Next Quickfix"},
+        -- ["<A-k>"] = {"<cmd>cprev<cr>", desc="Previous Quickfix"},
+        ["<A-j>"] = {function()
+          -- organise quick fix list first so it takes priority if its open
+          if utils.is_window_open("qf") then
+            vim.api.nvim_command("cnext")
+          elseif utils.is_window_open("aerial") then
+            vim.api.nvim_command("AerialNext")
+          end
+        end, desc="Previous quick fix or aerial"},
+        ["<A-k>"] = {function()
+          -- organise quick fix list first so it takes priority if its open
+          if utils.is_window_open("qf") then
+            vim.api.nvim_command("cprev")
+          elseif utils.is_window_open("aerial") then
+            vim.api.nvim_command("AerialPrev")
+          end
+        end, desc="Previous quick fix or aerial"},
 
         ["<leader>ve"] = {
             function()
@@ -115,6 +132,36 @@ M.general = {
         ["<A-K>"] = { "<CMD>wincmd 2 +<CR>"},
         ["<A-L>"] = { "<CMD>wincmd 2 ><CR>"},
     },
+
+    -- Set command mode keybinds for starting completion, cycling next/prev
+    -- and accepting but not entering a completion item
+    c = {
+      ["<C-j>"] = {function()
+        if vim.fn.pumvisible() == 1 then return "<C-n>" end
+        if vim.fn.wildmenumode() == 1 then return "<Tab>" end
+        local tab = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+        vim.api.nvim_feedkeys(tab, "t", false)
+        return "" -- already submitted the key to the term with feedkeys
+      end, desc="Next Item", expr=true, noremap=true},
+
+      ["<C-k>"] = {function()
+        if vim.fn.pumvisible() == 1 then return "<C-p>" end
+        if vim.fn.wildmenumode() == 1 then return "<S-Tab>" end
+        local tab = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+        vim.api.nvim_feedkeys(tab, "t", false)
+        return "" -- already submitted the key to the term with feedkeys
+        -- return "<S-Tab>"
+      end, desc="Previous Item", expr=true, noremap=true},
+
+      ["<C-space>"] = {function()
+        if vim.fn.pumvisible() == 1 then return "<C-y>" end
+        if vim.fn.wildmenumode() == 1 then return "<C-y>" end
+
+        local tab = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+        vim.api.nvim_feedkeys(tab, "t", false) -- "t" = treat as keycodes
+        return ""
+      end, desc="Accept Completion", expr = true, noremap = true }
+    }
 }
 
 M.telescope = {
@@ -124,7 +171,7 @@ M.telescope = {
             local no_preview_drop_down = require("plugins.ui.telescope").no_preview
             return require("telescope.builtin").find_files(no_preview_drop_down)
         end, desc="Find File" },
-        ["<leader>ff"] = { function()
+        ["<C-f>"] = { function()
           local dynamic_height = require("utils.telescope-utils").dynamic_height()
           return require("telescope.builtin").find_files(dynamic_height)
         end, desc="Find File" },
@@ -165,12 +212,6 @@ M.telescope = {
 	},
 }
 
-M.neotree = {
-    n = {
-        ["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc="NeoTree"},
-    }
-}
-
 
 M.lspconfig = {
 	n = {
@@ -188,28 +229,24 @@ M.gitsigns = {
   }
 }
 
--- This only works because now loading all mappings after lazy has loaded all plugins
-local harpoon = require("harpoon")
-M.harpoon = {
-    n = {
-        ["<A-h>"] = {function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc="[H]arpoon [L]ist"},
-        ["<leader>a"] = {function() harpoon:list():add() end, desc="[H]arpoon [A]dd"},
-        -- ["<A-1>"] = {function() harpoon:list():select(1) end, desc="Harpoon Item 1"},
-        -- ["<A-2>"] = {function() harpoon:list():select(2) end , desc="Harpoon Item 2"},
-        -- ["<A-3>"] = {function() harpoon:list():select(3) end , desc="Harpoon Item 2"},
-        -- ["<A-4>"] = {function() harpoon:list():select(4) end , desc="Harpoon Item 2"},
-        -- ["<A-5>"] = {function() harpoon:list():select(5) end , desc="Harpoon Item 2"},
-    },
-}
-
 M.BufBuddy = {
   n = {
-    -- [","] = {function() require("BufBuddy").start() end, desc="Open buffer list"}
     ["]b"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
     ["<Tab>"] = {function() require("BufBuddy"):next() end, desc="Next Buffer"},
     ["[b"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
     ["<S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
-    ["<C-S-Tab>"] = {function() require("BufBuddy"):prev() end, desc="Next Buffer"},
+  }
+}
+
+M.fyler = {
+  n = {
+    ["<leader>e"] = {"<cmd>Fyler kind=split_left_most<cr>"}
+  }
+}
+
+M.refer = {
+  n = {
+    ["<M-f>"] = {"<cmd>Refer Files<cr>", desc="Open Files"}
   }
 }
 

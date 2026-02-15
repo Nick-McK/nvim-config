@@ -4,17 +4,17 @@ return {
   dependencies = 'rafamadriz/friendly-snippets',
 
   -- use a release tag to download pre-built binaries
-  version = '0.10.0',
+  version = '1.9.1',
   opts = {
     -- 'default' for mappings similar to built-in completion
     -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
     -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
     -- See the full "keymap" documentation for information on defining your own keymap.
     keymap = {
-        preset = 'default',
-        ['<C-j>'] = {'select_next', "fallback"},
-        ['<C-k>'] = {'select_prev', "fallback"},
-        ['<C-space>'] = {'select_and_accept'}
+      preset = 'default',
+      ['<C-j>'] = {'select_next', "fallback"},
+      ['<C-k>'] = {'select_prev', "fallback"},
+      ['<C-space>'] = {'select_and_accept'}
     },
 
     appearance = {
@@ -27,16 +27,45 @@ return {
       nerd_font_variant = 'mono'
     },
     completion = {
-        menu = {
-            draw = {
-                treesitter = {"lsp"},
-                columns = {
-                    {"label", "label_description", gap=1},
-                    {"kind_icon", "kind", "source_name", gap=2}
-                }
-            }
-        },
+      ghost_text = { enabled = true },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 300
+      },
 
+      menu = {
+        draw = {
+          treesitter = {"lsp"},
+          columns = {
+            {"label", "label_description", gap=1},
+            {"kind_icon", "kind", "source_name", gap=2},
+          }
+        }
+      },
+    },
+
+    cmdline = {
+      enabled = false,
+      keymap = {
+        preset = "inherit",
+        -- ['<C-j>'] = {'show_and_insert_or_accept_single', "fallback"},
+        -- ['<C-k>'] = {'select_prev', "fallback"},
+        -- ['<C-space>'] = {'select_and_accept'},
+        -- ["<Tab>"] = {"show", "accept"}
+      },
+      -- completion = {
+      --   menu = {
+      --     auto_show = true
+      --   }
+      -- },
+      -- Disables completion in command line - only because Noice menu looks cleaner
+      sources = function()
+        if vim.fn.getcmdline() == ":" then
+          return {}
+        else
+          return { "buffer" }
+        end
+      end
     },
 
     signature = {enabled = true},
@@ -48,8 +77,4 @@ return {
     },
   },
   opts_extend = { "sources.default" },
-
-  -- config = function(_, opts)
-  --   require("blink.cmp").setup(opts)
-  -- end
 }

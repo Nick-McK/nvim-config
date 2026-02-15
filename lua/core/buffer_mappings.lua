@@ -1,0 +1,10 @@
+-- vim.api.nvim_create_autocmd({"FileType"}, {
+--   pattern = "qf",
+--   callback = function(args)
+--     vim.keymap.set("n", "n", "<A-j>", "<cmd>cnext<cr>")
+--
+--     vim.api.nvim_create_autocmd({"WinClosed"}, {
+--
+--     })
+--   end
+-- })

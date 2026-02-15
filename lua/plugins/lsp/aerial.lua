@@ -20,4 +20,12 @@ return {
      "nvim-treesitter/nvim-treesitter",
      "nvim-tree/nvim-web-devicons"
   },
+  -- config = function()
+  --   vim.api.nvim_create_autocmd({"FileType"}, {
+  --     pattern = "aerial",
+  --     callback = function(ev)
+  --       vim.keymap.set("n", "<M-j>", )
+  --     end
+  --   })
+  -- end
 }

@@ -1,4 +1,4 @@
 return {
-  "SmiteshP/nvim-navic",
-  requires = "neovim/nvim-lspconfig"
+  -- "SmiteshP/nvim-navic",
+  -- requires = "neovim/nvim-lspconfig"
 }

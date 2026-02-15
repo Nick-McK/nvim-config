@@ -4,21 +4,31 @@ local M = {}
 -- options is anything that can be passed to keymap.set() in the table arg and doesn't need to be wrapped within a table
 --@param mappings: table of mappings defined in mappings.lua
 M.load_mappings = function(m)
-    for plug,_ in pairs(m) do
-        for mode, maps in pairs(_) do
-            for key_map, cmd in pairs(maps) do
-                -- Convert everything after the command to execute to be options of
-                local options = {}
-                local execute_cmd = cmd
-                if type(cmd) == "table" then
-                    execute_cmd = cmd[1]
-                    options = vim.tbl_deep_extend("force", options, cmd)
-                    options[1] = nil
-                end
-                vim.keymap.set(mode, key_map, execute_cmd, options)
-            end
+  for plug,_ in pairs(m) do
+    for mode, maps in pairs(_) do
+      for key_map, cmd in pairs(maps) do
+        -- Convert everything after the command to execute to be options of
+        local options = {}
+        local execute_cmd = cmd
+        if type(cmd) == "table" then
+          execute_cmd = cmd[1]
+          options = vim.tbl_deep_extend("force", options, cmd)
+          options[1] = nil
         end
+        vim.keymap.set(mode, key_map, execute_cmd, options)
+      end
     end
+  end
+end
+
+M.is_window_open = function(ft)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == ft then
+      return true
+    end
+  end
+  return false
 end
 
 return M

@@ -1,11 +1,11 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter",
   opts = {
-		ensure_installed = {
-			"lua",
-			"python",
-			"javascript",
-			"ocaml"
-		}
+    ensure_installed = {
+      "lua",
+      "python",
+      "javascript",
+      "ocaml"
+    }
   },
 }

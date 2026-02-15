@@ -3,9 +3,17 @@ return {
 	event = "VeryLazy",
 	init = function()
 		vim.o.timeout = true
-		vim.o.timeoutlen = 300
+		vim.o.timeoutlen = 200
 	end,
-	-- config = function()
-	-- 	require("which-key").setup({})
-	-- end
+  opts = {
+    preset = "helix" -- smaller right side window
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("whch-key").show({ global = false })
+      end, desc = "Which Key Local"
+    }
+  }
 }

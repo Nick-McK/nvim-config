@@ -46,39 +46,6 @@ local function get_mode(mode)
   return mode_map[mode] or mode:sub(1,1)
 end
 
---TODO: This function is run 1/s so parsing strings each time is wasteful. Look
---      into only parsing strings if the buffer list changes
-local function add_buf_buddy_section()
-  local buf_buddy = require("BufBuddy")
-  local buffers = {}
-  -- print("bufbuddy list" .. vim.inspect(buf_buddy.list))
-  local truncated = buf_buddy.get_truncated_paths(buf_buddy:get_list())
-  for i, buf in ipairs(buf_buddy:get_list()) do
-    if i > 5 then
-      break
-    end
-    if vim.api.nvim_buf_is_loaded(buf.id) then
-      local buffer_name = vim.fn.fnamemodify(buf.name, ":t")
-      local status_line_str = truncated[buf.name]
-      if vim.api.nvim_get_current_buf() == buf.id then
-        status_line_str = string.format(
-          "*%s*",
-          truncated[buf.name]
-        )
-
-        -- local hl = "%#BufBuddyStatusLineActive#"
-        -- local sep_hl = "%#BufBuddyStatusLineActiveSeparator#"
-        -- status_line_str = string.format(
-        -- "%s%s%s%s%s",
-        -- sep_hl, hl, truncated[buf.name], sep_hl,"%#Normal#")
-      end
-
-      table.insert(buffers, status_line_str)
-    end
-  end
-  return string.format("%s", table.concat(buffers, " | "))
-end
-
 return {
 	"nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -93,13 +60,15 @@ return {
 			sections = {
         lualine_a = {{ 'mode', fmt = function(mode) return get_mode(mode) end}},
         -- lualine_b = {"branch", "diagnostics"},
-        lualine_b = { function() return add_buf_buddy_section() end},
-				lualine_c = {  },
+        -- lualine_b = { function() return add_buf_buddy_section() end},
+        -- lualine_b = { "branch", {"filename", path = 0} },
+        lualine_b = {"branch"},
+        lualine_c = { {"filename", path = 0 }, "diagnostics"},
 				-- lualine_c = { {"filename", path = 1}},
         -- lualine_c = { function() return add_buf_buddy_section() end },
-        lualine_x = {"fileformat", "diagnostics"},
+        lualine_x = {"fileformat", "searchcount"},
         -- lualine_x = {},
-        lualine_y = {"progress", "branch"}, -- default "pogress"
+        lualine_y = {"progress", "lsp_status"},
         lualine_z = {"location"},
 			}
 		})
