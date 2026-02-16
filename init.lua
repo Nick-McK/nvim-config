@@ -34,3 +34,4 @@ local mappings = require("core.mappings")
 local utils = require("core.utils")
 -- load mappings
 utils.load_mappings(mappings)
+require("core.lsp")
