@@ -25,6 +25,7 @@ if not vim.g.lazy_initialized then
       {import = "plugins.colorschemes"},
       {import = "plugins.ui"},
       {import = "plugins.lsp"},
+      {import = "plugins.git"}
     }
   })
 end

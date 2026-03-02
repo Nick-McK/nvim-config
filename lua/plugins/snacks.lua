@@ -20,7 +20,8 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
     dim = { enabled = false },
-    debug = { enabled = true }
+    debug = { enabled = true },
+    lazygit = { enabled = true }
   },
   keys = {
         { "<leader>a", function() Snacks.explorer() end, desc = "File Explorer" },

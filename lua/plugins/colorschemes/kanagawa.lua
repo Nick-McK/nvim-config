@@ -10,6 +10,11 @@ return {
             ui = {
               bg_gutter = "none"
             }
+          },
+          wave = {
+            ui = {
+              bg_gutter = "none"
+            }
           }
         }
       },

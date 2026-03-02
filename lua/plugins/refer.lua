@@ -36,7 +36,7 @@ return {
       min_height = 1,         -- Minimum window height in lines
 
       -- Async Settings
-      debounce_ms = 10,      -- Delay for async searching (files/grep)
+      debounce_ms = 100,      -- Delay for async searching (files/grep)
       min_query_len = 2,      -- Minimum characters to start async search
 
       custom_sorters = {

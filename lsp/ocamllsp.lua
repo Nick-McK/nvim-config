@@ -1,4 +1,3 @@
--- ignore
 -- return {
 --
 -- -- Not sure what this would be for 0.11 lsp config
