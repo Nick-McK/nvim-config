@@ -25,5 +25,6 @@ return {
   },
   keys = {
         { "<leader>a", function() Snacks.explorer() end, desc = "File Explorer" },
+        { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazy Git"}
   }
 }

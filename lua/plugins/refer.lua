@@ -1,7 +1,12 @@
 local function update_frecency_blink(selection)
-  if type(selection) ~= "string" or selection == "" then
-    vim.notify("NO SELECTION", vim.log.levels.ERROR)
-    return
+  if type(selection) == "table" then
+    if not selection.text or selection.text == "" then
+      vim.notify("refer(frecency): unlikely to be accessing frecency database. Incorrect selection format")
+    end
+  elseif type(selection) == "string" then
+    if selection == "" then
+      vim.notify("refer(frecency): selection string empty")
+    end
   end
 
   local ok, fuzzy = pcall(require, "blink.cmp.fuzzy")
@@ -12,15 +17,135 @@ local function update_frecency_blink(selection)
 
   -- This function updates the frecency database
   fuzzy.access({
-    label = selection,
-    filterText = selection,
-    sortText = selection,
-    insertText = selection,
+    label = selection.text or selection,
+    filterText = selection.text or selection,
+    sortText = selection.text or selection,
+    insertText = selection.text or selection,
     kind = 1,
     score_offset = 0,
     source_id = "refer",
+    source_name = "refer"
   })
 end
+
+-- local function blink_frecency(items, query)
+--   local blink_ok, blink = pcall(require, "refer.blink")
+--   if not blink_ok then return items end
+--   if not blink.is_available() then return items end
+--
+--   local blink_items = {}
+--   for _, item in ipairs(items) do
+--     blink_items[#blink_items + 1] = {
+--       label = item,
+--       filterText = item,
+--       sortText = item,
+--       insertText = item,
+--       kind = 1,
+--       score_offset = 0,
+--       source_id = "refer",
+--       source_name = "refer"
+--     }
+--   end
+--
+--   blink.set_provider_items("refer", blink_items)
+--   local _, idxs = blink.fuzzy(query, "refer")
+--   if not idxs then return {} end
+--
+--   local out = {}
+--   for _, idx in ipairs(idxs) do
+--     out[#out + 1] = items[idx + 1]
+--   end
+--   return out
+-- end
+
+local blink_mod = nil
+local blink_available = nil
+
+local cached_len = -1
+local cached_first = nil
+local cached_last = nil
+local cached_blink_items = nil
+
+local provider_id = "refer"
+
+local function get_blink()
+  if blink_available ~= nil then
+    return blink_available and blink_mod or nil
+  end
+
+  local ok, mod = pcall(require, "refer.blink")
+  if not ok or not mod.is_available() then
+    blink_available = false
+    return nil
+  end
+
+  blink_mod = mod
+  blink_available = true
+  return blink_mod
+end
+
+local function items_changed(items)
+  local len = #items
+
+  return len ~= cached_len
+    or items[1] ~= cached_first
+    or items[len] ~= cached_last
+end
+
+local function set_items_for_blink(blink, items)
+  local blink_items = {}
+
+  for i = 1, #items do
+    local item = items[i]
+
+    blink_items[i] = {
+      label = item,
+      filterText = item,
+      sortText = item,
+      insertText = item,
+      kind = 1,
+      score_offset = 0,
+      source_id = provider_id,
+      source_name = provider_id,
+    }
+  end
+
+  cached_len = #items
+  cached_first = items[1]
+  cached_last = items[#items]
+  cached_blink_items = blink_items
+
+  blink.set_provider_items(provider_id, cached_blink_items)
+end
+
+local function blink_frecency(items, query)
+  if query == "" then
+    return items
+  end
+
+  local blink = get_blink()
+  if not blink then
+    return items
+  end
+
+  if items_changed(items) then
+    set_items_for_blink(blink, items)
+  end
+
+  local _, idxs = blink.fuzzy(query, provider_id)
+  if not idxs then
+    return {}
+  end
+
+  local out = {}
+
+  for i = 1, #idxs do
+    out[i] = items[idxs[i] + 1]
+  end
+
+  return out
+end
+
 
 return {
   "juniorsundar/refer.nvim",
@@ -29,6 +154,7 @@ return {
     -- "nvim-mini/mini.fuzzy",
   },
   config = function()
+    vim.g.refer_show_ignored = false
     local refer = require("refer")
     refer.setup({
       -- General Settings
@@ -40,59 +166,15 @@ return {
       min_query_len = 2,      -- Minimum characters to start async search
 
       custom_sorters = {
-        blink_frecency = function(items, query)
-          local blink_ok, blink = pcall(require, "refer.blink")
-          if not blink_ok then return items end
-          if not blink.is_available() then return items end
-
-          local blink_items = {}
-          for _, item in ipairs(items) do
-            blink_items[#blink_items + 1] = {
-              label = item,
-              filterText = item,
-              sortText = item,
-              insertText = item,
-              kind = 1,
-              score_offset = 0,
-              source_id = "refer",
-            }
-          end
-
-          blink.set_provider_items("refer", blink_items)
-          local _, idxs = blink.fuzzy(query, "refer")
-          if not idxs then return {} end
-
-          local out = {}
-          for _, idx in ipairs(idxs) do
-            out[#out + 1] = items[idx + 1]
-          end
-          return out
-        end
+        blink_frecency = blink_frecency
       },
 
       -- Sorting
-      -- available_sorters = { "blink_frecency", "blink", "mini", "native", "lua" },
-      available_sorters = {"blink_frecency", "blink"},
-      default_sorter = "blink_frecency", -- Default sorter for static lists.
-      -- If blink.cmp isn't installed, it will download
-      -- the compiled library using `curl`.
-
-      -- Preview Settings
+      available_sorters = {"blink_frecency", "blink", "native"},
+      default_sorter = "blink_frecency",
       preview = {
         enabled = true,     -- Enable/Disable preview by default
-        max_lines = 1000,   -- Max lines to read for preview (performance)
-      },
-
-      -- UI Customization
-      ui = {
-        mark_char = "●",
-        mark_hl = "String",
-        winhighlight = "Normal:Normal,FloatBorder:Normal,WinSeparator:Normal,StatusLine:Normal,StatusLineNC:Normal",
-        highlights = {
-          prompt = "Title",
-          selection = "Visual",
-          header = "WarningMsg", -- For grep/LSP file headers
-        },
+        max_lines = 300,   -- Max lines to read for preview (performance)
       },
 
       -- Provider Configuration
@@ -100,12 +182,17 @@ return {
         files = {
           -- Custom ignored directories for 'Files' picker
           ignored_dirs = { ".git", ".jj", "node_modules", ".cache" },
-          -- Custom fd command
-          -- find_command = { "fdfind", "-H", "--type", "f", "--color", "never" },
+
+          -- Custom find because debian uses fdfind not fd
+          -- Refer returns early without using the ignored_dirs when using a custom func so define again
           find_command = function(query)
+            local ignored_dirs = { ".git", ".jj", "node_modules", ".cache" }
             local cmd = { "fdfind", "-H", "--type", "f", "--color", "never"}
-            if vim.g.refer_show_ignored then
-              table.insert(cmd, "-u") -- stop ignore
+            if not vim.g.refer_show_ignored then
+              for _, dir in ipairs(ignored_dirs) do
+                table.insert(cmd, "--exclude")
+                table.insert(cmd, dir)
+              end
             end
             return cmd
           end
