@@ -6,15 +6,14 @@ local lsp_dir = vim.fn.stdpath("config") .. "/lsp/"
 for _, file in ipairs(vim.fn.globpath(lsp_dir, "*.lua", false, true)) do
   -- :t gets file name
   -- :r removes extension
+  local open_file = io.open(file, "r")
+  local first_line = open_file:read("*l")
+
   local name = vim.fn.fnamemodify(file, ":t:r")
-  for line in io.lines(file) do
-    if string.find(line, "ignore") then
-      -- skip files that have the ignore comment at the start
-      -- vim.notify("Skipping setup of LSP: " .. name)
-      break
-    end
+  if not first_line:find("-- disable") then
     table.insert(lsp_files, name)
   end
+
 end
 
 vim.lsp.enable(lsp_files)

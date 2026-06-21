@@ -17,5 +17,12 @@ return {
         }
       }
     })
-  end
+  end,
+  keys = {
+    {
+      "<leader>e",
+      function() require("fyler").open({kind="split_left_most"}) end,
+      desc="Fyler"
+    }
+  }
 }

@@ -1,3 +1,4 @@
+local utils = require("core.utils")
 return {
   'stevearc/aerial.nvim',
   opts = {
@@ -28,4 +29,29 @@ return {
   --     end
   --   })
   -- end
+  keys = {
+    { "<leader>at", "<cmd>AerialToggle!<cr>", desc="[A]erial [T]oggle" },
+    -- {
+    --   "<A-j>",
+    --   function()
+    --     if not utils.is_window_open("qf") and
+    --       utils.is_window_open("aerial")
+    --     then
+    --       vim.cmd("AerialNext")
+    --     end
+    --   end,
+    --   desc="Aerial Next"
+    -- },
+    -- {
+    --   "<A-k>",
+    --   function()
+    --     if not utils.is_window_open("qf")
+    --       and utils.is_window_open("aerial")
+    --     then
+    --       vim.cmd("AerialPrev")
+    --     end
+    --   end,
+    --   desc="Aerial Next"
+    -- }
+  }
 }

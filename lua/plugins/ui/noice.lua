@@ -53,5 +53,8 @@ return {
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
+  },
+  keys = {
+    {"<leader>im", "cmd>Noice | wincmd L<cr>", desc="[I]nspect [M]essages"},
   }
 }

@@ -28,36 +28,6 @@ local function update_frecency_blink(selection)
   })
 end
 
--- local function blink_frecency(items, query)
---   local blink_ok, blink = pcall(require, "refer.blink")
---   if not blink_ok then return items end
---   if not blink.is_available() then return items end
---
---   local blink_items = {}
---   for _, item in ipairs(items) do
---     blink_items[#blink_items + 1] = {
---       label = item,
---       filterText = item,
---       sortText = item,
---       insertText = item,
---       kind = 1,
---       score_offset = 0,
---       source_id = "refer",
---       source_name = "refer"
---     }
---   end
---
---   blink.set_provider_items("refer", blink_items)
---   local _, idxs = blink.fuzzy(query, "refer")
---   if not idxs then return {} end
---
---   local out = {}
---   for _, idx in ipairs(idxs) do
---     out[#out + 1] = items[idx + 1]
---   end
---   return out
--- end
-
 local blink_mod = nil
 local blink_available = nil
 

@@ -15,5 +15,8 @@ return {
     end,
 	config = function(_, opts)
 		require("oil").setup(opts)
-	end
+	end,
+  keys = {
+    { "<C-n>", function() require("oil").toggle_float() end, desc="Oil"}
+  }
 }
