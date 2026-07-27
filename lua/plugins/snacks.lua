@@ -152,11 +152,11 @@ return {
     { "<C-f>", function() Snacks.picker.smart() end, desc="[F]ind [F]ile"},
     { "<leader>fb", function() Snacks.picker.lines() end, desc="[F]ind [L]ines"},
     { "<leader>lg", function() Snacks.lazygit() end, desc = "[L]azy [G]it"},
-    { "<C-l>", function() Snacks.lazygit() end, desc="[L]azygit"},
     { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc="[F]ind [D]iagnostics Buffer"},
     { "<leader>fD", function() Snacks.picker.diagnostics() end, desc="[F]ind [D]iagnostics"},
     { "<leader>fg", function() Snacks.picker.grep() end, desc="[F]ind [G]rep"},
     { "<leader>ft", function() Snacks.picker.colorschemes() end, desc="[F]ind [T]heme"},
-    { "<A-m>", function() Snacks.picker.marks() end, desc="[M]arks"}
+    { "<A-m>", function() Snacks.picker.marks() end, desc="[M]arks"},
+    { "<leader>fH", function() Snacks.picker.highlights() end, desc="[F]ind [H]ighlights"},
   }
 }

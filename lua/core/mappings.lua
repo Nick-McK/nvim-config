@@ -5,7 +5,10 @@ local M = {}
 -- TODO: Sort all these out and format them in some way
 M.general = {
   n = {
+    -- Plugin/Lua debug mappings
     ["<A-R>"] = {"<cmd>source %<cr>", desc="source current file"},
+    ["<A-I>"] = {"<cmd>Inspect<cr>", desc="Inspect current symbol"},
+
 
     ["<leader>sl"] = {"<cmd>set list<cr>", desc="Sets char list"},
     ["<leader>sln"] = {"<cmd>set nolist<cr>", desc="Unsets char list"},

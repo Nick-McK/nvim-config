@@ -10,7 +10,15 @@ return {
       }
     },
   },
-  config = function(_, opts)
-    require "todo-comments".setup(opts)
-  end,
+  keys = {
+    {
+      "<leader>td", function() Snacks.picker.todo_comments() end, desc="[T]o[D]o"
+    },
+    {
+      "<leader>nm", function() Snacks.picker.todo_comments({ keywords = {"NMNM", "TODO", "NMTODO" } }) end, desc="Todo filter=[NM]"
+    }
+  },
+  -- config = function(_, opts)
+  --   require "todo-comments".setup(opts)
+  -- end,
 }

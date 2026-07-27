@@ -1,23 +1,27 @@
 return {
-  "A7Lavinraj/fyler.nvim",
+  "FylerOrg/fyler.nvim",
   dependencies = { "nvim-mini/mini.icons" },
   branch = "stable",  -- Latest release branch
-  config = function()
-    require("fyler").setup({
-      views = {
-        finder = {
-          win = {
-            kinds = {
-              split_left_most = {
-                width = "20%",
-                win_opts = {winfixwidth = true}
-              }
-            }
-          }
+  opts = {
+    win_opts = {
+      relativenumber = true
+    },
+    integrations = {
+      icon = "nvim_web_devicons"
+    },
+    kind_presets = {
+      split_left_most = { width = "20%" }
+    },
+    mappings = {
+      n = {
+        ["<M-i>"] = {
+          action = "toggle_ui",
+          args = { "hidden_items" }
         }
       }
-    })
-  end,
+    }
+
+  },
   keys = {
     {
       "<leader>e",
