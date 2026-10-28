@@ -1,3 +1,4 @@
+local plain = require("utils.plain_picker")
 local function dynamic_ivy_height(opts)
   opts = vim.tbl_extend("force", {
     min = 2,      -- minimum result rows
@@ -138,7 +139,9 @@ return {
     quickfile = { enabled = false },
     scope = { enabled = true },
     scroll = { enabled = false },
-    statuscolumn = { enabled = true },
+    statuscolumn = {
+      enabled = false
+    },
     words = { enabled = true },
     dim = { enabled = false },
     debug = { enabled = true },
@@ -149,8 +152,32 @@ return {
     { "<leader>fe", function() Snacks.explorer() end, desc = "[F]ile [E]xplorer" },
     { "<leader>fm", function() Snacks.picker.man() end, desc = "[F]ind [M]an"},
     { "<leader>fh", function() Snacks.picker.help() end, desc="[F]ind [H]elp"},
-    { "<C-f>", function() Snacks.picker.smart() end, desc="[F]ind [F]ile"},
+    { 
+      "<C-f>",
+      function() 
+        plain.smart({
+          title = "Files",
+          prompt = "Files -> ",
+          layout = {
+            layout = {
+              title_pos = "center"
+            }
+          },
+          debug = { scores = true }
+        }) 
+      end, desc="[F]ind [F]ile"
+    },
     { "<leader>fb", function() Snacks.picker.lines() end, desc="[F]ind [L]ines"},
+    { "<leader>sf", function() Snacks.picker.lines() end, desc="[S]earch [F]ile"},
+    { 
+      "<leader>sa", 
+      function() 
+        plain.grep({
+          title = "Grep", 
+          prompt = "Grep > "
+        }, { max_height = 18}) 
+      end, desc="[S]earch [A]ll"
+    },
     { "<leader>lg", function() Snacks.lazygit() end, desc = "[L]azy [G]it"},
     { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc="[F]ind [D]iagnostics Buffer"},
     { "<leader>fD", function() Snacks.picker.diagnostics() end, desc="[F]ind [D]iagnostics"},
